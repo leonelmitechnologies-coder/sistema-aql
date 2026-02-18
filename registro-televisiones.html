@@ -866,6 +866,96 @@
             background-color: #000000;
         }
 
+        /* ========== DASHBOARD ========== */
+        .dashboard-container {
+            padding: 30px;
+        }
+
+        .kpi-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+
+        .kpi-card {
+            background: #ffffff;
+            border: 1px solid #dee2e6;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .kpi-card .kpi-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #212529;
+            line-height: 1;
+            margin-bottom: 6px;
+        }
+
+        .kpi-card .kpi-label {
+            font-size: 11px;
+            color: #6c757d;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 500;
+        }
+
+        .kpi-card.kpi-green .kpi-value { color: #198754; }
+        .kpi-card.kpi-red .kpi-value { color: #dc3545; }
+        .kpi-card.kpi-blue .kpi-value { color: #0d6efd; }
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .chart-card {
+            background: #ffffff;
+            border: 1px solid #dee2e6;
+            padding: 20px;
+        }
+
+        .chart-card h4 {
+            font-size: 13px;
+            font-weight: 600;
+            color: #212529;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 16px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .chart-card canvas {
+            max-height: 280px;
+        }
+
+        .dashboard-empty {
+            text-align: center;
+            padding: 80px 20px;
+            color: #6c757d;
+        }
+
+        .dashboard-empty p {
+            font-size: 15px;
+            margin-bottom: 4px;
+        }
+
+        .dashboard-empty small {
+            font-size: 12px;
+        }
+
+        @media (max-width: 768px) {
+            .kpi-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -909,6 +999,7 @@
         <nav class="tab-nav">
             <button class="tab-btn active" onclick="cambiarTab('registro')">Registro</button>
             <button class="tab-btn" onclick="cambiarTab('historial')">Historial</button>
+            <button class="tab-btn" onclick="cambiarTab('dashboard')">Dashboard</button>
             <button class="tab-btn" onclick="cambiarTab('config')" style="display:none;">Config</button>
         </nav>
 
@@ -1255,6 +1346,64 @@
             </div>
         </div><!-- fin tabHistorial -->
 
+        <!-- TAB: Dashboard -->
+        <div class="tab-content" id="tabDashboard">
+            <div class="dashboard-container">
+                <div class="dashboard-empty" id="dashboardEmpty" style="display:none;">
+                    <p>Sin datos para mostrar</p>
+                    <small>Registra inspecciones para ver los gráficos</small>
+                </div>
+
+                <div id="dashboardContent" style="display:none;">
+                    <div class="kpi-row">
+                        <div class="kpi-card">
+                            <div class="kpi-value" id="kpiTotal">0</div>
+                            <div class="kpi-label">Total Inspecciones</div>
+                        </div>
+                        <div class="kpi-card kpi-green">
+                            <div class="kpi-value" id="kpiAceptados">0</div>
+                            <div class="kpi-label">Aceptados</div>
+                        </div>
+                        <div class="kpi-card kpi-red">
+                            <div class="kpi-value" id="kpiRechazados">0</div>
+                            <div class="kpi-label">Rechazados</div>
+                        </div>
+                        <div class="kpi-card kpi-blue">
+                            <div class="kpi-value" id="kpiTasa">0%</div>
+                            <div class="kpi-label">Tasa Aceptación</div>
+                        </div>
+                    </div>
+
+                    <div class="charts-grid">
+                        <div class="chart-card">
+                            <h4>Estado AQL</h4>
+                            <canvas id="chartAQL"></canvas>
+                        </div>
+                        <div class="chart-card">
+                            <h4>Por Clasificación</h4>
+                            <canvas id="chartClasificacion"></canvas>
+                        </div>
+                        <div class="chart-card">
+                            <h4>Estado de Componentes</h4>
+                            <canvas id="chartComponentes"></canvas>
+                        </div>
+                        <div class="chart-card">
+                            <h4>Inspecciones por Día</h4>
+                            <canvas id="chartTendencia"></canvas>
+                        </div>
+                        <div class="chart-card">
+                            <h4>Por Marca</h4>
+                            <canvas id="chartMarcas"></canvas>
+                        </div>
+                        <div class="chart-card">
+                            <h4>Por Inspector</h4>
+                            <canvas id="chartInspectores"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- fin tabDashboard -->
+
         <!-- TAB: Configuración -->
         <div class="tab-content" id="tabConfig">
             <div class="config-container">
@@ -1287,6 +1436,7 @@
     <script src="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/js/tom-select.complete.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/pocketbase@0.26.8/dist/pocketbase.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
     <script>
         // Catálogo de SKUs embebido
         const catalogoSKU = [
@@ -50298,13 +50448,251 @@
                 document.getElementById('tabHistorial').classList.add('active');
                 document.getElementById('headerTitle').textContent = 'Historial de Registros';
                 cargarHistorial();
-            } else if (tab === 'config') {
+            } else if (tab === 'dashboard') {
                 document.querySelectorAll('.tab-btn')[2].classList.add('active');
+                document.getElementById('tabDashboard').classList.add('active');
+                document.getElementById('headerTitle').textContent = 'Dashboard';
+                cargarDashboard();
+            } else if (tab === 'config') {
+                document.querySelectorAll('.tab-btn')[3].classList.add('active');
                 document.getElementById('tabConfig').classList.add('active');
                 document.getElementById('headerTitle').textContent = 'Configuración';
                 cargarConfiguracion();
             }
             window.scrollTo(0, 0);
+        }
+
+        // ==========================================
+        // DASHBOARD
+        // ==========================================
+        let dashCharts = {};
+
+        function destruirCharts() {
+            Object.values(dashCharts).forEach(c => { if (c) c.destroy(); });
+            dashCharts = {};
+        }
+
+        async function cargarDashboard() {
+            let registros = [];
+
+            if (pbConectado && pb.authStore.isValid) {
+                try {
+                    const result = await pb.collection('inspecciones').getFullList({
+                        sort: '-fecha'
+                    });
+                    registros = result.map(r => ({
+                        licensePlate: r.licensePlate,
+                        sku: r.sku,
+                        marca: r.marca,
+                        modelo: r.modelo,
+                        pulgada: r.pulgada,
+                        clasificacion: r.clasificacion,
+                        clasificacionCaja: r.clasificacionCaja,
+                        accesorios: r.accesorios,
+                        proteccion: r.proteccion,
+                        estadoAudio: r.estadoAudio,
+                        estadoVideo: r.estadoVideo,
+                        estadoPantalla: r.estadoPantalla,
+                        estadoChasis: r.estadoChasis,
+                        estadoAQL: r.estadoAQL,
+                        fecha: r.fecha || '',
+                        inspector: r.inspector || ''
+                    }));
+                } catch(err) {
+                    console.error('Dashboard: error PB, usando local:', err);
+                    registros = JSON.parse(localStorage.getItem('registrosTV') || '[]');
+                }
+            } else {
+                registros = JSON.parse(localStorage.getItem('registrosTV') || '[]');
+            }
+
+            if (registros.length === 0) {
+                document.getElementById('dashboardEmpty').style.display = 'block';
+                document.getElementById('dashboardContent').style.display = 'none';
+                return;
+            }
+
+            document.getElementById('dashboardEmpty').style.display = 'none';
+            document.getElementById('dashboardContent').style.display = '';
+
+            // KPIs
+            const total = registros.length;
+            const aceptados = registros.filter(r => r.estadoAQL === 'ACEPTADO').length;
+            const rechazados = registros.filter(r => r.estadoAQL === 'RECHAZADO').length;
+            const tasa = total > 0 ? Math.round((aceptados / total) * 100) : 0;
+
+            document.getElementById('kpiTotal').textContent = total;
+            document.getElementById('kpiAceptados').textContent = aceptados;
+            document.getElementById('kpiRechazados').textContent = rechazados;
+            document.getElementById('kpiTasa').textContent = tasa + '%';
+
+            destruirCharts();
+            renderizarCharts(registros);
+        }
+
+        function contarValores(arr, campo) {
+            const conteo = {};
+            arr.forEach(r => {
+                const val = r[campo] || 'Sin dato';
+                conteo[val] = (conteo[val] || 0) + 1;
+            });
+            return conteo;
+        }
+
+        function renderizarCharts(registros) {
+            const colores = ['#212529', '#495057', '#6c757d', '#adb5bd', '#0d6efd', '#198754', '#ffc107', '#dc3545', '#0dcaf0', '#6610f2'];
+
+            // 1. Donut AQL
+            dashCharts.aql = new Chart(document.getElementById('chartAQL'), {
+                type: 'doughnut',
+                data: {
+                    labels: ['Aceptado', 'Rechazado'],
+                    datasets: [{
+                        data: [
+                            registros.filter(r => r.estadoAQL === 'ACEPTADO').length,
+                            registros.filter(r => r.estadoAQL === 'RECHAZADO').length
+                        ],
+                        backgroundColor: ['#198754', '#dc3545'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { position: 'bottom', labels: { font: { size: 12, family: 'inherit' }, padding: 16 } }
+                    }
+                }
+            });
+
+            // 2. Barras por clasificación
+            const clasif = contarValores(registros, 'clasificacion');
+            dashCharts.clasificacion = new Chart(document.getElementById('chartClasificacion'), {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(clasif),
+                    datasets: [{
+                        label: 'Inspecciones',
+                        data: Object.values(clasif),
+                        backgroundColor: '#212529',
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { beginAtZero: true, ticks: { stepSize: 1 } },
+                        x: { grid: { display: false } }
+                    }
+                }
+            });
+
+            // 3. Componentes (barras horizontales agrupadas por estado)
+            const componentes = ['estadoAudio', 'estadoVideo', 'estadoPantalla', 'estadoChasis'];
+            const compLabels = ['Audio', 'Video', 'Pantalla', 'Chasis'];
+            const estados = ['Excelente', 'Buen Estado', 'Con Problemas'];
+            const compColores = ['#198754', '#ffc107', '#dc3545'];
+
+            dashCharts.componentes = new Chart(document.getElementById('chartComponentes'), {
+                type: 'bar',
+                data: {
+                    labels: compLabels,
+                    datasets: estados.map((estado, i) => ({
+                        label: estado,
+                        data: componentes.map(campo => registros.filter(r => r[campo] === estado).length),
+                        backgroundColor: compColores[i],
+                        borderWidth: 0
+                    }))
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    plugins: { legend: { position: 'bottom', labels: { font: { size: 11 }, padding: 12 } } },
+                    scales: {
+                        x: { beginAtZero: true, stacked: true, ticks: { stepSize: 1 } },
+                        y: { stacked: true, grid: { display: false } }
+                    }
+                }
+            });
+
+            // 4. Tendencia por día
+            const porDia = {};
+            registros.forEach(r => {
+                if (!r.fecha) return;
+                const dia = r.fecha.substring(0, 10);
+                porDia[dia] = (porDia[dia] || 0) + 1;
+            });
+            const diasOrdenados = Object.keys(porDia).sort();
+
+            dashCharts.tendencia = new Chart(document.getElementById('chartTendencia'), {
+                type: 'line',
+                data: {
+                    labels: diasOrdenados.map(d => { const p = d.split('-'); return p[2] + '/' + p[1]; }),
+                    datasets: [{
+                        label: 'Inspecciones',
+                        data: diasOrdenados.map(d => porDia[d]),
+                        borderColor: '#0d6efd',
+                        backgroundColor: 'rgba(13, 110, 253, 0.1)',
+                        fill: true,
+                        tension: 0.3,
+                        borderWidth: 2,
+                        pointRadius: 4,
+                        pointBackgroundColor: '#0d6efd'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { beginAtZero: true, ticks: { stepSize: 1 } },
+                        x: { grid: { display: false } }
+                    }
+                }
+            });
+
+            // 5. Por marca
+            const marcas = contarValores(registros, 'marca');
+            const marcasOrdenadas = Object.entries(marcas).sort((a, b) => b[1] - a[1]);
+            dashCharts.marcas = new Chart(document.getElementById('chartMarcas'), {
+                type: 'bar',
+                data: {
+                    labels: marcasOrdenadas.map(m => m[0]),
+                    datasets: [{
+                        label: 'Inspecciones',
+                        data: marcasOrdenadas.map(m => m[1]),
+                        backgroundColor: colores.slice(0, marcasOrdenadas.length),
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { beginAtZero: true, ticks: { stepSize: 1 } },
+                        x: { grid: { display: false } }
+                    }
+                }
+            });
+
+            // 6. Donut por inspector
+            const inspectores = contarValores(registros, 'inspector');
+            dashCharts.inspectores = new Chart(document.getElementById('chartInspectores'), {
+                type: 'doughnut',
+                data: {
+                    labels: Object.keys(inspectores),
+                    datasets: [{
+                        data: Object.values(inspectores),
+                        backgroundColor: colores.slice(0, Object.keys(inspectores).length),
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { position: 'bottom', labels: { font: { size: 11 }, padding: 12 } }
+                    }
+                }
+            });
         }
 
         // ==========================================
