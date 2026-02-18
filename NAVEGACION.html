@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Documentación - MI Technologies</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 10px 25px;
+            background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+            color: white;
+            border-radius: 25px;
+            font-weight: bold;
+            margin: 10px;
+        }
+
+        .doc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .doc-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .doc-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+
+        .doc-card .header-section {
+            padding: 25px;
+            color: white;
+            text-align: center;
+        }
+
+        .doc-card .header-section.html {
+            background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+        }
+
+        .doc-card .header-section.markdown {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+        }
+
+        .doc-card .icon {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+
+        .doc-card .title {
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+
+        .doc-card .content-section {
+            padding: 25px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .doc-card .description {
+            color: #7f8c8d;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            flex: 1;
+        }
+
+        .doc-card .meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 15px;
+            border-top: 2px solid #ecf0f1;
+        }
+
+        .doc-card .size {
+            color: #95a5a6;
+            font-size: 0.9em;
+        }
+
+        .doc-card .badge {
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+        }
+
+        .badge.html {
+            background: #e8f5e9;
+            color: #27ae60;
+        }
+
+        .badge.markdown {
+            background: #e3f2fd;
+            color: #2196f3;
+        }
+
+        .badge.priority {
+            background: #fee;
+            color: #e74c3c;
+        }
+
+        .section {
+            background: white;
+            padding: 35px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .section h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .legend {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .legend-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .quick-access {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .quick-btn {
+            padding: 15px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .quick-btn.primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .quick-btn.success {
+            background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+            color: white;
+        }
+
+        .quick-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+
+        @media (max-width: 768px) {
+            .doc-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>📚 Centro de Documentación</h1>
+            <p style="color: #7f8c8d; font-size: 1.2em; margin: 15px 0;">MI Technologies Inc. - Sistema de Gestión de Calidad</p>
+            <div>
+                <span class="status-badge">✅ 10 Documentos Disponibles</span>
+                <span class="status-badge">🌐 4 HTMLs Interactivos</span>
+                <span class="status-badge">📄 6 Documentos Técnicos</span>
+            </div>
+        </div>
+
+        <!-- Quick Access -->
+        <div class="section">
+            <h2>🚀 Acceso Rápido</h2>
+            <div class="quick-access">
+                <a href="RESUMEN_EJECUTIVO.html" class="quick-btn primary">📄 Resumen Ejecutivo</a>
+                <a href="index.html" class="quick-btn success">📊 Dashboard</a>
+                <a href="ANEXO_A_INSPECCION.html" class="quick-btn success">✅ Formato Inspección</a>
+            </div>
+        </div>
+
+        <!-- Legend -->
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-icon" style="background: #27ae60;">🌐</div>
+                <span>HTML Interactivo - Abrir en navegador</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-icon" style="background: #3498db;">📄</div>
+                <span>Markdown - Abrir con editor de texto</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-icon" style="background: #e74c3c;">⭐</div>
+                <span>Prioridad Alta - Revisar primero</span>
+            </div>
+        </div>
+
+        <!-- HTML Documents -->
+        <div class="section">
+            <h2>🌐 Documentos HTML Interactivos</h2>
+            <div class="doc-grid">
+                <a href="INICIO.html" class="doc-card">
+                    <div class="header-section html">
+                        <div class="icon">🏠</div>
+                        <div class="title">Página Principal</div>
+                    </div>
+                    <div class="content-section">
+                        <div class="description">
+                            Portal de entrada al sistema con estadísticas clave y navegación a todos los documentos.
+                        </div>
+                        <div class="meta">
+                            <span class="size">12 KB</span>
+                            <span class="badge priority">⭐ INICIO</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="RESUMEN_EJECUTIVO.html" class="doc-card">
+                    <div class="header-section html">
+                        <div class="icon">📄</div>
+                        <div class="title">Resumen Ejecutivo</div>
+                    </div>
+                    <div class="content-section">
+                        <div class="description">
+                            Presentación visual para gerencia con gráficos, análisis financiero y recomendaciones.
+                        </div>
+                        <div class="meta">
+                            <span class="size">29 KB</span>
+                            <span class="badge priority">⭐ GERENCIA</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="index.html" class="doc-card">
+                    <div class="header-section html">
+                        <div class="icon">📊</div>
+                        <div class="title">Dashboard Interactivo</div>
+                    </div>
+                    <div class="content-section">
+                        <div class="description">
+                            Dashboard completo con gráficos animados, estadísticas, KPIs y timeline de implementación.
+                        </div>
+                        <div class="meta">
+                            <span class="size">26 KB</span>
+                            <span class="badge html">VISUAL</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="ANEXO_A_INSPECCION.html" class="doc-card">
+                    <div class="header-section html">
+                        <div class="icon">✅</div>
+                        <div class="title">Plantilla de Inspección</div>
+                    </div>
+                    <div class="content-section">
+                        <div class="description">
+                            Formato interactivo de inspección visual al 100% con checkboxes, campos y grilla de pantalla.
+                        </div>
+                        <div class="meta">
+                            <span class="size">39 KB</span>
+                            <span class="badge html">IMPRIMIBLE</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Markdown Documents -->
+        <div class="section">
+            <h2>📄 Documentos Técnicos (Markdown/Texto)</h2>
+            <div class="doc-grid">
+                <a href="ANALISIS_INTEGRAL_CALIDAD_TELEVISORES_SNTV.md" class="doc-card">
+                    <div class="header-section markdown">
+                        <div class="icon">📚</div>
+                        <div class="title">Análisis Integral Completo</div>
+                    </div>
+                    <div class="content-section">
+                        <div class="description">
+                            Documento técnico de 50+ páginas con análisis exhaustivo, FMEA, RCA, plan AQL y cronograma detallado.
+                        </div>
+                        <div class="meta">
+                            <span class="size">37 KB</span>
+                            <span class="badge markdown">TÉCNICO</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="ANEXO_A_Plantilla_Inspeccion_Visual_Pantalla.md" class="doc-card">
+                    <div class="header-section markdown">
+                        <div class="icon">📋</div>
+                        <div class="title">Anexo A (Markdown)</div>
+                    </div>
+                    <div class="content-section">
+                        <div class="description">
+                            Versión texto de la plantilla de inspección visual. Procedimiento paso a paso detallado.
+                        </div>
+                        <div class="meta">
+                            <span class="size">7.2 KB</span>
+                            <span class="badge markdown">TEXTO</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="ANEXO_B_Checklist_Accesorios_por_Modelo.md" class="doc-card">
+                    <div class="header-section markdown">
+                        <div class="icon">✓</div>
+                        <div class="title">Anexo B - Checklist</div>
+                    </div>
+                    <div class="content-section">
+                        <div class="description">
+                            Checklist de accesorios por modelo con plan de muestreo AQL 0.65 y procedimientos de verificación.
+                        </div>
+                        <div class="meta">
+                            <span class="size">7.9 KB</span>
+                            <span class="badge markdown">TEXTO</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="ANEXO_C_Formato_Reporte_No_Conformidad.md" class="doc-card">
+                    <div class="header-section markdown">
+                        <div class="icon">📝</div>
+                        <div class="title">Anexo C - Formato NCR</div>
+                    </div>
+                    <div class="content-section">
+                        <div class="description">
+                            Formato completo de Reporte de No Conformidad con RCA, disposición y acciones correctivas.
+                        </div>
+                        <div class="meta">
+                            <span class="size">12 KB</span>
+                            <span class="badge markdown">TEXTO</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="README.md" class="doc-card">
+                    <div class="header-section markdown">
+                        <div class="icon">📖</div>
+                        <div class="title">Guía de Implementación</div>
+                    </div>
+                    <div class="content-section">
+                        <div class="description">
+                            Manual completo paso a paso, FAQ, checklist de inicio rápido y cronograma semanal de implementación.
+                        </div>
+                        <div class="meta">
+                            <span class="size">12 KB</span>
+                            <span class="badge markdown">GUÍA</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="DATOS_ESTADISTICOS_RESUMEN.txt" class="doc-card">
+                    <div class="header-section markdown">
+                        <div class="icon">📊</div>
+                        <div class="title">Datos Estadísticos</div>
+                    </div>
+                    <div class="content-section">
+                        <div class="description">
+                            Resumen de todos los números clave en formato texto visual. Fácil de copiar y compartir.
+                        </div>
+                        <div class="meta">
+                            <span class="size">9.6 KB</span>
+                            <span class="badge markdown">DATOS</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="RESUMEN_EJECUTIVO.md" class="doc-card">
+                    <div class="header-section markdown">
+                        <div class="icon">📄</div>
+                        <div class="title">Resumen Ejecutivo (MD)</div>
+                    </div>
+                    <div class="content-section">
+                        <div class="description">
+                            Versión texto del resumen ejecutivo. Misma información que la versión HTML pero en formato Markdown.
+                        </div>
+                        <div class="meta">
+                            <span class="size">9.7 KB</span>
+                            <span class="badge markdown">TEXTO</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Usage Instructions -->
+        <div class="section">
+            <h2>💡 Cómo Usar los Documentos</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                <div style="background: #e8f5e9; padding: 20px; border-radius: 10px; border-left: 5px solid #27ae60;">
+                    <h3 style="color: #27ae60; margin-bottom: 10px;">🌐 Archivos HTML</h3>
+                    <ul style="margin-left: 20px; line-height: 1.8;">
+                        <li>Hacer <strong>doble clic</strong> para abrir en navegador</li>
+                        <li>Totalmente interactivos y visuales</li>
+                        <li>Se pueden imprimir (Ctrl+P)</li>
+                        <li>Funcionan sin internet</li>
+                    </ul>
+                </div>
+
+                <div style="background: #e3f2fd; padding: 20px; border-radius: 10px; border-left: 5px solid #2196f3;">
+                    <h3 style="color: #2196f3; margin-bottom: 10px;">📄 Archivos Markdown/TXT</h3>
+                    <ul style="margin-left: 20px; line-height: 1.8;">
+                        <li>Abrir con <strong>editor de texto</strong> o Notepad</li>
+                        <li>Formato texto plano legible</li>
+                        <li>Fácil de editar y copiar</li>
+                        <li>Compatible con cualquier sistema</li>
+                    </ul>
+                </div>
+
+                <div style="background: #fff3cd; padding: 20px; border-radius: 10px; border-left: 5px solid #f39c12;">
+                    <h3 style="color: #f39c12; margin-bottom: 10px;">⭐ Recomendación</h3>
+                    <ul style="margin-left: 20px; line-height: 1.8;">
+                        <li>Para <strong>presentaciones</strong>: usar HTMLs</li>
+                        <li>Para <strong>impresión</strong>: usar HTMLs</li>
+                        <li>Para <strong>edición</strong>: usar Markdowns</li>
+                        <li>Para <strong>implementación</strong>: usar ambos</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="section" style="text-align: center;">
+            <h2>📞 Información</h2>
+            <p style="font-size: 1.1em; color: #2c3e50; margin: 15px 0;">
+                <strong>Total del Sistema:</strong> 163 KB de documentación completa
+            </p>
+            <p style="color: #7f8c8d; margin: 10px 0;">
+                Todos los archivos están en: <code style="background: #f8f9fa; padding: 5px 10px; border-radius: 5px;">C:\Proyectos Claude\AQL_Calidad\</code>
+            </p>
+            <p style="margin-top: 20px; color: #7f8c8d;">
+                <strong>MI Technologies Inc.</strong> - Sistema de Gestión de Calidad<br>
+                Preparado por: Ingeniero de Calidad Black Belt | 13 de Febrero, 2026
+            </p>
+        </div>
+    </div>
+</body>
+</html>
