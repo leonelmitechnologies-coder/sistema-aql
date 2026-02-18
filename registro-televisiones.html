@@ -637,19 +637,279 @@
             color: #ffffff;
         }
 
+        /* ========== LOGIN OVERLAY ========== */
+        .login-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .login-overlay.hidden {
+            display: none;
+        }
+
+        .login-box {
+            background: #ffffff;
+            padding: 48px 40px;
+            max-width: 420px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .login-box h2 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #212529;
+            margin-bottom: 8px;
+        }
+
+        .login-box p {
+            font-size: 13px;
+            color: #6c757d;
+            margin-bottom: 28px;
+        }
+
+        .login-box .form-group {
+            text-align: left;
+            margin-bottom: 16px;
+        }
+
+        .login-box .form-group input {
+            width: 100%;
+            padding: 11px 14px;
+            border: 1px solid #ced4da;
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        .login-box .form-group input:focus {
+            outline: none;
+            border-color: #212529;
+        }
+
+        .login-box .btn-login {
+            width: 100%;
+            padding: 12px;
+            background-color: #212529;
+            color: #ffffff;
+            border: none;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-family: inherit;
+            margin-top: 8px;
+        }
+
+        .login-box .btn-login:hover {
+            background-color: #000000;
+        }
+
+        .login-box .btn-login:disabled {
+            background-color: #6c757d;
+            cursor: not-allowed;
+        }
+
+        .login-error {
+            background-color: #fef5f5;
+            color: #842029;
+            border-left: 3px solid #842029;
+            padding: 10px 14px;
+            font-size: 13px;
+            margin-bottom: 16px;
+            display: none;
+            text-align: left;
+        }
+
+        /* ========== STATUS BAR ========== */
+        .status-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 20px;
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #dee2e6;
+            font-size: 12px;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #6c757d;
+        }
+
+        .status-dot.online {
+            background-color: #198754;
+        }
+
+        .status-dot.offline {
+            background-color: #dc3545;
+        }
+
+        .status-dot.syncing {
+            background-color: #ffc107;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        .status-text {
+            color: #6c757d;
+            font-weight: 500;
+        }
+
+        .status-user {
+            color: #495057;
+            font-weight: 500;
+        }
+
+        .btn-logout {
+            background: none;
+            border: 1px solid #6c757d;
+            color: #6c757d;
+            padding: 3px 10px;
+            font-size: 11px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.15s;
+        }
+
+        .btn-logout:hover {
+            border-color: #dc3545;
+            color: #dc3545;
+        }
+
+        /* ========== CONFIG TAB ========== */
+        .config-container {
+            padding: 40px;
+        }
+
+        .config-section {
+            margin-bottom: 32px;
+        }
+
+        .config-section h3 {
+            font-size: 14px;
+            font-weight: 600;
+            color: #212529;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .config-info {
+            display: grid;
+            grid-template-columns: 140px 1fr;
+            gap: 8px 16px;
+            font-size: 13px;
+        }
+
+        .config-info dt {
+            color: #6c757d;
+            font-weight: 500;
+        }
+
+        .config-info dd {
+            color: #212529;
+            margin: 0;
+        }
+
+        .sync-status-box {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 16px;
+            margin-top: 16px;
+        }
+
+        .sync-status-box p {
+            font-size: 13px;
+            color: #495057;
+            margin: 4px 0;
+        }
+
+        .btn-sync {
+            padding: 10px 20px;
+            background-color: #212529;
+            color: #ffffff;
+            border: none;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-family: inherit;
+            margin-top: 12px;
+            transition: background-color 0.15s;
+        }
+
+        .btn-sync:hover {
+            background-color: #000000;
+        }
+
     </style>
 </head>
 <body>
+    <!-- LOGIN OVERLAY -->
+    <div class="login-overlay" id="loginOverlay">
+        <div class="login-box">
+            <h2>Sistema AQL</h2>
+            <p>Control de Calidad - Inicie sesión para continuar</p>
+            <div class="login-error" id="loginError"></div>
+            <div class="form-group">
+                <label for="loginEmail">Correo electrónico</label>
+                <input type="email" id="loginEmail" placeholder="inspector@aql-calidad.com">
+            </div>
+            <div class="form-group">
+                <label for="loginPassword">Contraseña</label>
+                <input type="password" id="loginPassword" placeholder="Contraseña">
+            </div>
+            <button class="btn-login" id="btnLogin" onclick="iniciarSesion()">Iniciar Sesión</button>
+        </div>
+    </div>
+
     <div class="container">
         <div class="header">
             <h1 id="headerTitle">Registro de Datos</h1>
             <p>Sistema de Control de Calidad - AQL</p>
         </div>
 
+        <!-- Status Bar -->
+        <div class="status-bar" id="statusBar" style="display: none;">
+            <div class="status-indicator">
+                <div class="status-dot" id="statusDot"></div>
+                <span class="status-text" id="statusText">Desconectado</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <span class="status-user" id="statusUser"></span>
+                <button class="btn-logout" onclick="cerrarSesion()">Salir</button>
+            </div>
+        </div>
+
         <!-- Navegación por pestañas -->
         <nav class="tab-nav">
             <button class="tab-btn active" onclick="cambiarTab('registro')">Registro</button>
             <button class="tab-btn" onclick="cambiarTab('historial')">Historial</button>
+            <button class="tab-btn" onclick="cambiarTab('config')">Config</button>
         </nav>
 
         <!-- TAB: Registro -->
@@ -995,10 +1255,38 @@
             </div>
         </div><!-- fin tabHistorial -->
 
+        <!-- TAB: Configuración -->
+        <div class="tab-content" id="tabConfig">
+            <div class="config-container">
+                <div class="config-section">
+                    <h3>Conexión al Servidor</h3>
+                    <dl class="config-info">
+                        <dt>Servidor</dt>
+                        <dd id="configServidor">http://192.168.80.103:8090</dd>
+                        <dt>Estado</dt>
+                        <dd id="configEstado">-</dd>
+                        <dt>Usuario</dt>
+                        <dd id="configUsuario">-</dd>
+                    </dl>
+                </div>
+                <div class="config-section">
+                    <h3>Sincronización</h3>
+                    <div class="sync-status-box">
+                        <p>Registros en servidor: <strong id="configServerCount">-</strong></p>
+                        <p>Registros locales (respaldo): <strong id="configLocalCount">-</strong></p>
+                        <p>Pendientes de sincronizar: <strong id="configPendingCount">0</strong></p>
+                        <button class="btn-sync" onclick="sincronizarPendientes()">Sincronizar Ahora</button>
+                        <button class="btn-sync" onclick="descargarBackupLocal()" style="background-color: #0f5132; margin-left: 8px;">Descargar Backup</button>
+                    </div>
+                </div>
+            </div>
+        </div><!-- fin tabConfig -->
+
     </div><!-- fin container -->
 
     <script src="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/js/tom-select.complete.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pocketbase@0.26.8/dist/pocketbase.umd.js"></script>
     <script>
         // Catálogo de SKUs embebido
         const catalogoSKU = [
@@ -49564,6 +49852,119 @@
 ];
 
         // ==========================================
+        // POCKETBASE - CONFIGURACIÓN
+        // ==========================================
+        const PB_URL = 'http://192.168.80.103:8090';
+        const pb = new PocketBase(PB_URL);
+        let pbConectado = false;
+
+        // Restaurar sesión guardada
+        const savedAuth = localStorage.getItem('pb_auth');
+        if (savedAuth) {
+            try {
+                const authData = JSON.parse(savedAuth);
+                pb.authStore.save(authData.token, authData.record);
+            } catch(e) {
+                localStorage.removeItem('pb_auth');
+            }
+        }
+
+        // ==========================================
+        // LOGIN / LOGOUT
+        // ==========================================
+        async function iniciarSesion() {
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value;
+            const btnLogin = document.getElementById('btnLogin');
+            const loginError = document.getElementById('loginError');
+
+            if (!email || !password) {
+                loginError.textContent = 'Ingrese correo y contraseña';
+                loginError.style.display = 'block';
+                return;
+            }
+
+            btnLogin.disabled = true;
+            btnLogin.textContent = 'Conectando...';
+            loginError.style.display = 'none';
+
+            try {
+                await pb.collection('users').authWithPassword(email, password);
+                localStorage.setItem('pb_auth', JSON.stringify({
+                    token: pb.authStore.token,
+                    record: pb.authStore.record
+                }));
+                pbConectado = true;
+                mostrarAppConectada();
+                sincronizarPendientes();
+                suscribirRealtime();
+            } catch(err) {
+                loginError.textContent = 'Error de autenticación. Verifique sus credenciales.';
+                loginError.style.display = 'block';
+                console.error('Login error:', err);
+            } finally {
+                btnLogin.disabled = false;
+                btnLogin.textContent = 'Iniciar Sesión';
+            }
+        }
+
+        // Login con Enter
+        document.getElementById('loginPassword').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') iniciarSesion();
+        });
+
+        function cerrarSesion() {
+            if (!confirm('¿Cerrar sesión?')) return;
+            pb.authStore.clear();
+            localStorage.removeItem('pb_auth');
+            pbConectado = false;
+            document.getElementById('loginOverlay').classList.remove('hidden');
+            document.getElementById('statusBar').style.display = 'none';
+            actualizarStatusBar('offline', 'Desconectado');
+        }
+
+        function mostrarAppConectada() {
+            document.getElementById('loginOverlay').classList.add('hidden');
+            document.getElementById('statusBar').style.display = 'flex';
+            const user = pb.authStore.record;
+            document.getElementById('statusUser').textContent = user ? (user.name || user.email) : '';
+            actualizarStatusBar('online', 'Conectado');
+        }
+
+        function actualizarStatusBar(estado, texto) {
+            const dot = document.getElementById('statusDot');
+            const textEl = document.getElementById('statusText');
+            dot.className = 'status-dot ' + estado;
+            textEl.textContent = texto;
+        }
+
+        // Auto-login si hay sesión guardada
+        async function verificarSesion() {
+            if (pb.authStore.isValid) {
+                try {
+                    await pb.collection('users').authRefresh();
+                    localStorage.setItem('pb_auth', JSON.stringify({
+                        token: pb.authStore.token,
+                        record: pb.authStore.record
+                    }));
+                    pbConectado = true;
+                    mostrarAppConectada();
+                    sincronizarPendientes();
+                    suscribirRealtime();
+                } catch(err) {
+                    console.log('Sesión expirada, mostrando login');
+                    pb.authStore.clear();
+                    localStorage.removeItem('pb_auth');
+                    document.getElementById('loginOverlay').classList.remove('hidden');
+                }
+            } else {
+                document.getElementById('loginOverlay').classList.remove('hidden');
+            }
+        }
+
+        verificarSesion();
+
+        // ==========================================
         // DATOS Y TOM SELECT
         // ==========================================
         let datosRegistro = {};
@@ -49756,7 +50157,7 @@
         }
 
         // Manejar envío del formulario
-        document.getElementById('aqlForm').addEventListener('submit', function(e) {
+        document.getElementById('aqlForm').addEventListener('submit', async function(e) {
             e.preventDefault();
 
             // Validar paso 2
@@ -49821,7 +50222,7 @@
             datosRegistro.fecha = new Date().toISOString();
 
             // Guardar registro
-            guardarRegistro(datosRegistro);
+            await guardarRegistro(datosRegistro);
 
             mostrarAlerta('Registro guardado exitosamente', 'success');
 
@@ -49830,12 +50231,54 @@
             }, 2000);
         });
 
-        // Guardar registro en localStorage
-        function guardarRegistro(datos) {
+        // Guardar registro - PocketBase + localStorage fallback
+        async function guardarRegistro(datos) {
+            // Siempre guardar localmente como respaldo
             let registros = JSON.parse(localStorage.getItem('registrosTV') || '[]');
             registros.push(datos);
             localStorage.setItem('registrosTV', JSON.stringify(registros));
-            console.log('Registro guardado:', datos);
+
+            // Intentar guardar en PocketBase
+            if (pbConectado && pb.authStore.isValid) {
+                actualizarStatusBar('syncing', 'Sincronizando...');
+                try {
+                    const pbData = {
+                        licensePlate: datos.licensePlate || '',
+                        sku: datos.sku || '',
+                        marca: datos.marca || '',
+                        modelo: datos.modelo || '',
+                        descripcion: datos.descripcion || '',
+                        pulgada: datos.pulgada || '',
+                        clasificacion: datos.clasificacion || '',
+                        clasificacionCaja: datos.clasificacionCaja || '',
+                        accesorios: datos.accesorios || '',
+                        proteccion: datos.proteccion || '',
+                        estadoAudio: datos.estadoAudio || '',
+                        estadoVideo: datos.estadoVideo || '',
+                        estadoPantalla: datos.estadoPantalla || '',
+                        estadoChasis: datos.estadoChasis || '',
+                        estadoAQL: datos.estadoAQL || '',
+                        fecha: datos.fecha || new Date().toISOString(),
+                        inspector: pb.authStore.record ? pb.authStore.record.email : ''
+                    };
+                    await pb.collection('inspecciones').create(pbData);
+                    actualizarStatusBar('online', 'Conectado');
+                    console.log('Registro guardado en PocketBase');
+                } catch(err) {
+                    console.error('Error al guardar en PocketBase:', err);
+                    actualizarStatusBar('offline', 'Error - guardado local');
+                    // Guardar en cola de pendientes
+                    let pendientes = JSON.parse(localStorage.getItem('pendingSync') || '[]');
+                    pendientes.push(datos);
+                    localStorage.setItem('pendingSync', JSON.stringify(pendientes));
+                }
+            } else {
+                // Sin conexión, guardar en cola de pendientes
+                let pendientes = JSON.parse(localStorage.getItem('pendingSync') || '[]');
+                pendientes.push(datos);
+                localStorage.setItem('pendingSync', JSON.stringify(pendientes));
+                console.log('Registro guardado localmente (pendiente de sincronización)');
+            }
         }
 
         // ==========================================
@@ -49850,11 +50293,16 @@
                 document.getElementById('tabRegistro').classList.add('active');
                 document.getElementById('headerTitle').textContent =
                     document.getElementById('step2').classList.contains('active') ? 'Proceso AQL' : 'Registro de Datos';
-            } else {
+            } else if (tab === 'historial') {
                 document.querySelectorAll('.tab-btn')[1].classList.add('active');
                 document.getElementById('tabHistorial').classList.add('active');
                 document.getElementById('headerTitle').textContent = 'Historial de Registros';
                 cargarHistorial();
+            } else if (tab === 'config') {
+                document.querySelectorAll('.tab-btn')[2].classList.add('active');
+                document.getElementById('tabConfig').classList.add('active');
+                document.getElementById('headerTitle').textContent = 'Configuración';
+                cargarConfiguracion();
             }
             window.scrollTo(0, 0);
         }
@@ -49862,10 +50310,48 @@
         // ==========================================
         // HISTORIAL DE REGISTROS
         // ==========================================
-        function cargarHistorial() {
-            const registros = JSON.parse(localStorage.getItem('registrosTV') || '[]');
-            actualizarEstadisticas(registros);
-            renderizarTabla(registros);
+        async function cargarHistorial() {
+            if (pbConectado && pb.authStore.isValid) {
+                actualizarStatusBar('syncing', 'Cargando...');
+                try {
+                    const result = await pb.collection('inspecciones').getFullList({
+                        sort: '-created'
+                    });
+                    const registros = result.map(r => ({
+                        id: r.id,
+                        licensePlate: r.licensePlate,
+                        sku: r.sku,
+                        marca: r.marca,
+                        modelo: r.modelo,
+                        descripcion: r.descripcion,
+                        pulgada: r.pulgada,
+                        clasificacion: r.clasificacion,
+                        clasificacionCaja: r.clasificacionCaja,
+                        accesorios: r.accesorios,
+                        proteccion: r.proteccion,
+                        estadoAudio: r.estadoAudio,
+                        estadoVideo: r.estadoVideo,
+                        estadoPantalla: r.estadoPantalla,
+                        estadoChasis: r.estadoChasis,
+                        estadoAQL: r.estadoAQL,
+                        fecha: r.fecha || r.created,
+                        inspector: r.inspector
+                    }));
+                    actualizarEstadisticas(registros);
+                    renderizarTablaPB(registros);
+                    actualizarStatusBar('online', 'Conectado');
+                } catch(err) {
+                    console.error('Error cargando desde PocketBase:', err);
+                    actualizarStatusBar('offline', 'Error - datos locales');
+                    const registros = JSON.parse(localStorage.getItem('registrosTV') || '[]');
+                    actualizarEstadisticas(registros);
+                    renderizarTabla(registros);
+                }
+            } else {
+                const registros = JSON.parse(localStorage.getItem('registrosTV') || '[]');
+                actualizarEstadisticas(registros);
+                renderizarTabla(registros);
+            }
         }
 
         function actualizarEstadisticas(registros) {
@@ -49899,6 +50385,7 @@
             });
         }
 
+        // Renderizar tabla desde localStorage (fallback)
         function renderizarTabla(registros) {
             const tbody = document.getElementById('historialBody');
             const emptyState = document.getElementById('emptyState');
@@ -49914,7 +50401,6 @@
             tableWrapper.style.display = 'block';
             emptyState.style.display = 'none';
 
-            // Mostrar del más reciente al más antiguo
             const registrosOrdenados = [...registros].reverse();
 
             tbody.innerHTML = registrosOrdenados.map((r, i) => {
@@ -49936,12 +50422,108 @@
                     '<td>' + getBadgeEstado(r.estadoPantalla) + '</td>' +
                     '<td>' + getBadgeEstado(r.estadoChasis) + '</td>' +
                     '<td>' + getBadgeEstado(r.estadoAQL) + '</td>' +
-                    '<td><button class="btn-delete-row" onclick="eliminarRegistro(' + idx + ')">Eliminar</button></td>' +
+                    '<td><button class="btn-delete-row" onclick="eliminarRegistroLocal(' + idx + ')">Eliminar</button></td>' +
                 '</tr>';
             }).join('');
         }
 
-        function filtrarHistorial() {
+        // Renderizar tabla desde PocketBase (usa record IDs)
+        function renderizarTablaPB(registros) {
+            const tbody = document.getElementById('historialBody');
+            const emptyState = document.getElementById('emptyState');
+            const tableWrapper = document.querySelector('.table-wrapper');
+
+            if (registros.length === 0) {
+                tbody.innerHTML = '';
+                tableWrapper.style.display = 'none';
+                emptyState.style.display = 'block';
+                return;
+            }
+
+            tableWrapper.style.display = 'block';
+            emptyState.style.display = 'none';
+
+            tbody.innerHTML = registros.map((r, i) => {
+                return '<tr>' +
+                    '<td>' + (i + 1) + '</td>' +
+                    '<td>' + formatearFecha(r.fecha) + '</td>' +
+                    '<td><strong>' + (r.licensePlate || '-') + '</strong></td>' +
+                    '<td>' + (r.sku || '-') + '</td>' +
+                    '<td>' + (r.marca || '-') + '</td>' +
+                    '<td>' + (r.modelo || '-') + '</td>' +
+                    '<td>' + (r.pulgada || '-') + '</td>' +
+                    '<td>' + (r.clasificacion || '-') + '</td>' +
+                    '<td>' + getBadgeEstado(r.clasificacionCaja) + '</td>' +
+                    '<td>' + getBadgeEstado(r.accesorios) + '</td>' +
+                    '<td>' + getBadgeEstado(r.proteccion) + '</td>' +
+                    '<td>' + getBadgeEstado(r.estadoAudio) + '</td>' +
+                    '<td>' + getBadgeEstado(r.estadoVideo) + '</td>' +
+                    '<td>' + getBadgeEstado(r.estadoPantalla) + '</td>' +
+                    '<td>' + getBadgeEstado(r.estadoChasis) + '</td>' +
+                    '<td>' + getBadgeEstado(r.estadoAQL) + '</td>' +
+                    '<td><button class="btn-delete-row" onclick="eliminarRegistroPB(\'' + r.id + '\')">Eliminar</button></td>' +
+                '</tr>';
+            }).join('');
+        }
+
+        // Filtrar historial - PocketBase o localStorage
+        async function filtrarHistorial() {
+            const texto = document.getElementById('filtroTexto').value.toLowerCase();
+            const filtroAQL = document.getElementById('filtroAQL').value;
+            const filtroClasif = document.getElementById('filtroClasificacion').value;
+
+            if (pbConectado && pb.authStore.isValid) {
+                try {
+                    let filters = [];
+                    if (texto) {
+                        const t = texto.replace(/"/g, '\\"');
+                        filters.push('(licensePlate ~ "' + t + '" || sku ~ "' + t + '" || marca ~ "' + t + '" || modelo ~ "' + t + '")');
+                    }
+                    if (filtroAQL) {
+                        filters.push('estadoAQL = "' + filtroAQL.replace(/"/g, '\\"') + '"');
+                    }
+                    if (filtroClasif) {
+                        filters.push('clasificacion = "' + filtroClasif.replace(/"/g, '\\"') + '"');
+                    }
+
+                    const filterStr = filters.length > 0 ? filters.join(' && ') : '';
+                    const result = await pb.collection('inspecciones').getFullList({
+                        sort: '-created',
+                        filter: filterStr
+                    });
+
+                    const registros = result.map(r => ({
+                        id: r.id,
+                        licensePlate: r.licensePlate,
+                        sku: r.sku,
+                        marca: r.marca,
+                        modelo: r.modelo,
+                        descripcion: r.descripcion,
+                        pulgada: r.pulgada,
+                        clasificacion: r.clasificacion,
+                        clasificacionCaja: r.clasificacionCaja,
+                        accesorios: r.accesorios,
+                        proteccion: r.proteccion,
+                        estadoAudio: r.estadoAudio,
+                        estadoVideo: r.estadoVideo,
+                        estadoPantalla: r.estadoPantalla,
+                        estadoChasis: r.estadoChasis,
+                        estadoAQL: r.estadoAQL,
+                        fecha: r.fecha || r.created,
+                        inspector: r.inspector
+                    }));
+                    actualizarEstadisticas(registros);
+                    renderizarTablaPB(registros);
+                } catch(err) {
+                    console.error('Error filtrando en PocketBase:', err);
+                    filtrarHistorialLocal();
+                }
+            } else {
+                filtrarHistorialLocal();
+            }
+        }
+
+        function filtrarHistorialLocal() {
             const texto = document.getElementById('filtroTexto').value.toLowerCase();
             const filtroAQL = document.getElementById('filtroAQL').value;
             const filtroClasif = document.getElementById('filtroClasificacion').value;
@@ -49962,7 +50544,21 @@
             renderizarTabla(filtrados);
         }
 
-        function eliminarRegistro(indice) {
+        // Eliminar registro desde PocketBase
+        async function eliminarRegistroPB(recordId) {
+            if (!confirm('¿Estás seguro de eliminar este registro?')) return;
+
+            try {
+                await pb.collection('inspecciones').delete(recordId);
+                cargarHistorial();
+            } catch(err) {
+                console.error('Error eliminando de PocketBase:', err);
+                alert('Error al eliminar el registro del servidor.');
+            }
+        }
+
+        // Eliminar registro local (fallback)
+        function eliminarRegistroLocal(indice) {
             if (!confirm('¿Estás seguro de eliminar este registro?')) return;
 
             let registros = JSON.parse(localStorage.getItem('registrosTV') || '[]');
@@ -49971,23 +50567,78 @@
             cargarHistorial();
         }
 
-        function limpiarHistorial() {
-            const registros = JSON.parse(localStorage.getItem('registrosTV') || '[]');
-            if (registros.length === 0) {
-                alert('No hay registros para eliminar.');
-                return;
-            }
+        // Limpiar todo el historial
+        async function limpiarHistorial() {
             if (!confirm('¿Estás seguro de eliminar TODOS los registros? Esta acción no se puede deshacer.')) return;
 
-            localStorage.removeItem('registrosTV');
-            cargarHistorial();
+            if (pbConectado && pb.authStore.isValid) {
+                actualizarStatusBar('syncing', 'Eliminando...');
+                try {
+                    const todos = await pb.collection('inspecciones').getFullList();
+                    if (todos.length === 0) {
+                        alert('No hay registros para eliminar.');
+                        return;
+                    }
+                    for (const r of todos) {
+                        await pb.collection('inspecciones').delete(r.id);
+                    }
+                    localStorage.removeItem('registrosTV');
+                    actualizarStatusBar('online', 'Conectado');
+                    cargarHistorial();
+                } catch(err) {
+                    console.error('Error limpiando PocketBase:', err);
+                    actualizarStatusBar('offline', 'Error');
+                    alert('Error al limpiar registros del servidor.');
+                }
+            } else {
+                const registros = JSON.parse(localStorage.getItem('registrosTV') || '[]');
+                if (registros.length === 0) {
+                    alert('No hay registros para eliminar.');
+                    return;
+                }
+                localStorage.removeItem('registrosTV');
+                cargarHistorial();
+            }
         }
 
         // ==========================================
         // EXPORTAR A EXCEL
         // ==========================================
-        function exportarExcel() {
-            const registros = JSON.parse(localStorage.getItem('registrosTV') || '[]');
+        async function exportarExcel() {
+            let registros = [];
+
+            if (pbConectado && pb.authStore.isValid) {
+                try {
+                    const result = await pb.collection('inspecciones').getFullList({
+                        sort: '-created'
+                    });
+                    registros = result.map(r => ({
+                        licensePlate: r.licensePlate,
+                        sku: r.sku,
+                        marca: r.marca,
+                        modelo: r.modelo,
+                        descripcion: r.descripcion,
+                        pulgada: r.pulgada,
+                        clasificacion: r.clasificacion,
+                        clasificacionCaja: r.clasificacionCaja,
+                        accesorios: r.accesorios,
+                        proteccion: r.proteccion,
+                        estadoAudio: r.estadoAudio,
+                        estadoVideo: r.estadoVideo,
+                        estadoPantalla: r.estadoPantalla,
+                        estadoChasis: r.estadoChasis,
+                        estadoAQL: r.estadoAQL,
+                        fecha: r.fecha || r.created,
+                        inspector: r.inspector
+                    }));
+                } catch(err) {
+                    console.error('Error exportando desde PocketBase:', err);
+                    registros = JSON.parse(localStorage.getItem('registrosTV') || '[]');
+                }
+            } else {
+                registros = JSON.parse(localStorage.getItem('registrosTV') || '[]');
+            }
+
             if (registros.length === 0) {
                 alert('No hay registros para exportar.');
                 return;
@@ -50010,7 +50661,8 @@
                 'Estado Video': r.estadoVideo || '',
                 'Estado Pantalla': r.estadoPantalla || '',
                 'Estado Chasis': r.estadoChasis || '',
-                'Estado AQL': r.estadoAQL || ''
+                'Estado AQL': r.estadoAQL || '',
+                'Inspector': r.inspector || ''
             }));
 
             const wb = XLSX.utils.book_new();
@@ -50019,13 +50671,122 @@
             ws['!cols'] = [
                 {wch: 5}, {wch: 20}, {wch: 16}, {wch: 14}, {wch: 12}, {wch: 16},
                 {wch: 30}, {wch: 8}, {wch: 12}, {wch: 18}, {wch: 18}, {wch: 20},
-                {wch: 14}, {wch: 14}, {wch: 14}, {wch: 14}, {wch: 14}
+                {wch: 14}, {wch: 14}, {wch: 14}, {wch: 14}, {wch: 14}, {wch: 24}
             ];
 
             XLSX.utils.book_append_sheet(wb, ws, 'Registros AQL');
 
             const fecha = new Date().toISOString().slice(0, 10);
             XLSX.writeFile(wb, 'AQL_Registros_' + fecha + '.xlsx');
+        }
+
+        // ==========================================
+        // SINCRONIZACIÓN DE PENDIENTES
+        // ==========================================
+        async function sincronizarPendientes() {
+            if (!pbConectado || !pb.authStore.isValid) return;
+
+            let pendientes = JSON.parse(localStorage.getItem('pendingSync') || '[]');
+            if (pendientes.length === 0) return;
+
+            actualizarStatusBar('syncing', 'Sincronizando ' + pendientes.length + ' pendientes...');
+            let errores = [];
+
+            for (let i = 0; i < pendientes.length; i++) {
+                const datos = pendientes[i];
+                try {
+                    await pb.collection('inspecciones').create({
+                        licensePlate: datos.licensePlate || '',
+                        sku: datos.sku || '',
+                        marca: datos.marca || '',
+                        modelo: datos.modelo || '',
+                        descripcion: datos.descripcion || '',
+                        pulgada: datos.pulgada || '',
+                        clasificacion: datos.clasificacion || '',
+                        clasificacionCaja: datos.clasificacionCaja || '',
+                        accesorios: datos.accesorios || '',
+                        proteccion: datos.proteccion || '',
+                        estadoAudio: datos.estadoAudio || '',
+                        estadoVideo: datos.estadoVideo || '',
+                        estadoPantalla: datos.estadoPantalla || '',
+                        estadoChasis: datos.estadoChasis || '',
+                        estadoAQL: datos.estadoAQL || '',
+                        fecha: datos.fecha || '',
+                        inspector: pb.authStore.record ? pb.authStore.record.email : ''
+                    });
+                } catch(err) {
+                    errores.push(datos);
+                    console.error('Error sincronizando registro:', err);
+                }
+            }
+
+            localStorage.setItem('pendingSync', JSON.stringify(errores));
+
+            if (errores.length === 0) {
+                actualizarStatusBar('online', 'Conectado');
+                console.log('Sincronización completa');
+            } else {
+                actualizarStatusBar('online', 'Conectado (' + errores.length + ' pendientes)');
+            }
+        }
+
+        // ==========================================
+        // REALTIME (actualización en vivo)
+        // ==========================================
+        function suscribirRealtime() {
+            try {
+                pb.collection('inspecciones').subscribe('*', function(e) {
+                    console.log('Evento realtime:', e.action);
+                    // Si estamos en la pestaña historial, recargar
+                    if (document.getElementById('tabHistorial').classList.contains('active')) {
+                        cargarHistorial();
+                    }
+                });
+                console.log('Suscrito a eventos realtime');
+            } catch(err) {
+                console.error('Error suscribiendo a realtime:', err);
+            }
+        }
+
+        // ==========================================
+        // CONFIGURACIÓN
+        // ==========================================
+        async function cargarConfiguracion() {
+            document.getElementById('configServidor').textContent = PB_URL;
+            document.getElementById('configEstado').textContent = pbConectado ? 'Conectado' : 'Desconectado';
+            document.getElementById('configUsuario').textContent = pb.authStore.record ? pb.authStore.record.email : '-';
+
+            const pendientes = JSON.parse(localStorage.getItem('pendingSync') || '[]');
+            document.getElementById('configPendingCount').textContent = pendientes.length;
+
+            const locales = JSON.parse(localStorage.getItem('registrosTV') || '[]');
+            document.getElementById('configLocalCount').textContent = locales.length;
+
+            if (pbConectado && pb.authStore.isValid) {
+                try {
+                    const result = await pb.collection('inspecciones').getList(1, 1);
+                    document.getElementById('configServerCount').textContent = result.totalItems;
+                } catch(err) {
+                    document.getElementById('configServerCount').textContent = 'Error';
+                }
+            } else {
+                document.getElementById('configServerCount').textContent = '-';
+            }
+        }
+
+        function descargarBackupLocal() {
+            const registros = JSON.parse(localStorage.getItem('registrosTV') || '[]');
+            if (registros.length === 0) {
+                alert('No hay registros locales para respaldar.');
+                return;
+            }
+            const blob = new Blob([JSON.stringify(registros, null, 2)], {type: 'application/json'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'AQL_Backup_' + new Date().toISOString().slice(0, 10) + '.json';
+            a.click();
+            URL.revokeObjectURL(url);
         }
     </script>
 </body>
