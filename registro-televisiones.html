@@ -637,257 +637,10 @@
             color: #ffffff;
         }
 
-        /* Login / Conexión */
-        .login-overlay {
-            position: fixed;
-            inset: 0;
-            background: #f8f9fa;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            padding: 20px;
-        }
-
-        .login-overlay.hidden {
-            display: none;
-        }
-
-        .login-card {
-            background: #ffffff;
-            border: 1px solid #dee2e6;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-            width: 100%;
-            max-width: 440px;
-            padding: 48px 40px;
-        }
-
-        .login-card h1 {
-            font-size: 22px;
-            font-weight: 600;
-            color: #212529;
-            margin-bottom: 4px;
-            letter-spacing: -0.5px;
-        }
-
-        .login-card .subtitle {
-            font-size: 13px;
-            color: #6c757d;
-            margin-bottom: 32px;
-        }
-
-        .login-card .form-group {
-            margin-bottom: 18px;
-        }
-
-        .login-card .btn-primary {
-            width: 100%;
-            padding: 13px;
-            margin-top: 8px;
-        }
-
-        .login-card .login-divider {
-            text-align: center;
-            color: #adb5bd;
-            font-size: 12px;
-            margin: 20px 0;
-            position: relative;
-        }
-
-        .login-card .login-divider::before,
-        .login-card .login-divider::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            width: 40%;
-            height: 1px;
-            background: #dee2e6;
-        }
-
-        .login-card .login-divider::before { left: 0; }
-        .login-card .login-divider::after { right: 0; }
-
-        .btn-offline {
-            width: 100%;
-            padding: 12px;
-            background: #f8f9fa;
-            border: 1px solid #ced4da;
-            color: #495057;
-            font-size: 13px;
-            font-weight: 500;
-            cursor: pointer;
-            font-family: inherit;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            transition: all 0.15s;
-        }
-
-        .btn-offline:hover {
-            background: #e9ecef;
-            border-color: #adb5bd;
-        }
-
-        /* Status bar */
-        .status-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px 16px;
-            background: #f8f9fa;
-            border-bottom: 1px solid #dee2e6;
-            font-size: 12px;
-        }
-
-        .status-indicator {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            color: #6c757d;
-        }
-
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #adb5bd;
-        }
-
-        .status-dot.online {
-            background: #198754;
-        }
-
-        .status-dot.offline {
-            background: #dc3545;
-        }
-
-        .status-dot.syncing {
-            background: #ffc107;
-            animation: pulse 1s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.4; }
-        }
-
-        .status-user {
-            color: #495057;
-            font-weight: 500;
-        }
-
-        .btn-logout {
-            background: none;
-            border: 1px solid #ced4da;
-            padding: 4px 12px;
-            font-size: 11px;
-            cursor: pointer;
-            color: #6c757d;
-            font-family: inherit;
-            transition: all 0.15s;
-        }
-
-        .btn-logout:hover {
-            background: #e9ecef;
-            color: #212529;
-        }
-
-        .pending-badge {
-            background: #ffc107;
-            color: #212529;
-            padding: 2px 8px;
-            font-size: 11px;
-            font-weight: 600;
-            margin-left: 8px;
-        }
-
-        /* Config tab */
-        .config-section {
-            padding: 40px;
-        }
-
-        .config-section h3 {
-            font-size: 16px;
-            font-weight: 600;
-            color: #212529;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .config-info {
-            background: #f8f9fa;
-            border-left: 3px solid #212529;
-            padding: 14px 16px;
-            margin-bottom: 24px;
-            font-size: 13px;
-            color: #495057;
-            line-height: 1.6;
-        }
-
-        .config-current {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 14px;
-            background: #f0f9f4;
-            border: 1px solid #d1e7dd;
-            margin-bottom: 20px;
-            font-size: 13px;
-        }
-
-        .config-current.disconnected {
-            background: #fff3cd;
-            border-color: #ffecb5;
-        }
     </style>
 </head>
 <body>
-    <!-- PANTALLA DE LOGIN -->
-    <div class="login-overlay" id="loginOverlay">
-        <div class="login-card">
-            <h1>Control de Calidad AQL</h1>
-            <p class="subtitle">Ingresa tus credenciales para acceder al sistema</p>
-
-            <div id="loginAlert" class="alert" style="display:none;"></div>
-
-            <div class="form-group">
-                <label for="serverUrl">URL DEL SERVIDOR</label>
-                <input type="text" id="serverUrl" placeholder="https://tu-servidor.pockethost.io">
-            </div>
-
-            <div class="form-group">
-                <label for="loginEmail">EMAIL</label>
-                <input type="email" id="loginEmail" placeholder="tu@email.com">
-            </div>
-
-            <div class="form-group">
-                <label for="loginPassword">CONTRASEÑA</label>
-                <input type="password" id="loginPassword" placeholder="Tu contraseña">
-            </div>
-
-            <button class="btn btn-primary" onclick="iniciarSesion()">Iniciar Sesión</button>
-
-            <div class="login-divider">o</div>
-
-            <button class="btn-offline" onclick="modoOffline()">Continuar sin conexión (modo local)</button>
-        </div>
-    </div>
-
-    <!-- APP PRINCIPAL -->
-    <div class="container" id="appContainer" style="display:none;">
-        <!-- Status bar -->
-        <div class="status-bar" id="statusBar">
-            <div class="status-indicator">
-                <span class="status-dot" id="statusDot"></span>
-                <span id="statusText">Desconectado</span>
-                <span class="pending-badge" id="pendingBadge" style="display:none;">0 pendientes</span>
-            </div>
-            <div style="display:flex; align-items:center; gap:12px;">
-                <span class="status-user" id="statusUser"></span>
-                <button class="btn-logout" onclick="cerrarSesion()">Salir</button>
-            </div>
-        </div>
-
+    <div class="container">
         <div class="header">
             <h1 id="headerTitle">Registro de Datos</h1>
             <p>Sistema de Control de Calidad - AQL</p>
@@ -897,7 +650,6 @@
         <nav class="tab-nav">
             <button class="tab-btn active" onclick="cambiarTab('registro')">Registro</button>
             <button class="tab-btn" onclick="cambiarTab('historial')">Historial</button>
-            <button class="tab-btn" onclick="cambiarTab('config')">Configuración</button>
         </nav>
 
         <!-- TAB: Registro -->
@@ -1243,61 +995,8 @@
             </div>
         </div><!-- fin tabHistorial -->
 
-        <!-- TAB: Configuración -->
-        <div class="tab-content" id="tabConfig">
-            <div class="config-section">
-                <h3>Conexión PocketBase</h3>
-
-                <div id="configStatus" class="config-current disconnected">
-                    Estado: Modo local (sin conexión a servidor)
-                </div>
-
-                <div class="config-info">
-                    Para usar PocketBase necesitas un servidor. Puedes crear uno gratis en
-                    <strong>pockethost.io</strong> o instalar PocketBase en tu propio servidor.
-                    <br><br>
-                    <strong>Colección requerida:</strong> Crea una colección llamada <code>inspecciones</code> con los campos:
-                    licensePlate (text), sku (text), marca (text), modelo (text), descripcion (text),
-                    pulgada (text), clasificacion (text), clasificacionCaja (text), accesorios (text),
-                    proteccion (text), estadoAudio (text), estadoVideo (text), estadoPantalla (text),
-                    estadoChasis (text), estadoAQL (text), fecha (text), inspector (text).
-                </div>
-
-                <div class="form-group">
-                    <label for="configUrl">URL DEL SERVIDOR</label>
-                    <input type="text" id="configUrl" placeholder="https://tu-servidor.pockethost.io">
-                </div>
-
-                <div class="form-group">
-                    <label for="configEmail">EMAIL</label>
-                    <input type="email" id="configEmail" placeholder="tu@email.com">
-                </div>
-
-                <div class="form-group">
-                    <label for="configPassword">CONTRASEÑA</label>
-                    <input type="password" id="configPassword" placeholder="Tu contraseña">
-                </div>
-
-                <div class="btn-container" style="border:none; padding-top:16px; margin-top:16px;">
-                    <button class="btn btn-primary" onclick="conectarServidor()">Conectar</button>
-                    <button class="btn btn-secondary" onclick="desconectarServidor()">Desconectar</button>
-                </div>
-
-                <h3 style="margin-top:40px;">Sincronización</h3>
-                <div class="config-info">
-                    Los registros creados sin conexión se guardan localmente y se sincronizan automáticamente
-                    cuando te conectas a un servidor PocketBase.
-                </div>
-                <div style="display:flex; gap:12px;">
-                    <button class="btn-export" onclick="sincronizarPendientes()">Sincronizar Pendientes</button>
-                    <button class="btn-export" style="background:#495057;" onclick="descargarBackupLocal()">Descargar Backup Local</button>
-                </div>
-            </div>
-        </div><!-- fin tabConfig -->
-
     </div><!-- fin container -->
 
-    <script src="https://cdn.jsdelivr.net/npm/pocketbase@0.26.8/dist/pocketbase.umd.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/js/tom-select.complete.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <script>
@@ -49865,436 +49564,6 @@
 ];
 
         // ==========================================
-        // POCKETBASE - INICIALIZACIÓN
-        // ==========================================
-        let pb = null;
-        let modoConexion = 'offline'; // 'online' o 'offline'
-
-        // Cargar configuración guardada
-        function cargarConfiguracion() {
-            const config = JSON.parse(localStorage.getItem('pbConfig') || '{}');
-            if (config.serverUrl) {
-                document.getElementById('serverUrl').value = config.serverUrl;
-                document.getElementById('configUrl').value = config.serverUrl;
-            }
-            if (config.email) {
-                document.getElementById('loginEmail').value = config.email;
-                document.getElementById('configEmail').value = config.email;
-            }
-        }
-
-        function guardarConfiguracion(url, email) {
-            localStorage.setItem('pbConfig', JSON.stringify({ serverUrl: url, email: email }));
-        }
-
-        // Login
-        async function iniciarSesion() {
-            const url = document.getElementById('serverUrl').value.trim();
-            const email = document.getElementById('loginEmail').value.trim();
-            const password = document.getElementById('loginPassword').value;
-            const alertBox = document.getElementById('loginAlert');
-
-            if (!url || !email || !password) {
-                alertBox.textContent = 'Completa todos los campos';
-                alertBox.className = 'alert alert-error';
-                alertBox.style.display = 'block';
-                return;
-            }
-
-            alertBox.textContent = 'Conectando...';
-            alertBox.className = 'alert alert-success';
-            alertBox.style.display = 'block';
-
-            try {
-                pb = new PocketBase(url);
-                await pb.collection('users').authWithPassword(email, password);
-
-                guardarConfiguracion(url, email);
-                modoConexion = 'online';
-                mostrarApp();
-                actualizarStatusBar();
-                suscribirTiempoReal();
-                sincronizarPendientes();
-            } catch (err) {
-                alertBox.textContent = 'Error: ' + (err.message || 'No se pudo conectar');
-                alertBox.className = 'alert alert-error';
-                alertBox.style.display = 'block';
-                pb = null;
-            }
-        }
-
-        function modoOffline() {
-            modoConexion = 'offline';
-            pb = null;
-            mostrarApp();
-            actualizarStatusBar();
-        }
-
-        function mostrarApp() {
-            document.getElementById('loginOverlay').classList.add('hidden');
-            document.getElementById('appContainer').style.display = '';
-        }
-
-        function cerrarSesion() {
-            if (pb) {
-                pb.collection('inspecciones').unsubscribe();
-                pb.authStore.clear();
-            }
-            pb = null;
-            modoConexion = 'offline';
-            document.getElementById('loginOverlay').classList.remove('hidden');
-            document.getElementById('appContainer').style.display = 'none';
-            document.getElementById('loginPassword').value = '';
-        }
-
-        function actualizarStatusBar() {
-            const dot = document.getElementById('statusDot');
-            const text = document.getElementById('statusText');
-            const user = document.getElementById('statusUser');
-            const badge = document.getElementById('pendingBadge');
-            const configStatus = document.getElementById('configStatus');
-
-            const pendientes = JSON.parse(localStorage.getItem('pendingSync') || '[]');
-
-            if (modoConexion === 'online' && pb && pb.authStore.isValid) {
-                dot.className = 'status-dot online';
-                text.textContent = 'Conectado a PocketBase';
-                user.textContent = pb.authStore.record.email;
-                configStatus.className = 'config-current';
-                configStatus.textContent = 'Conectado a: ' + pb.baseURL + ' (' + pb.authStore.record.email + ')';
-            } else {
-                dot.className = 'status-dot offline';
-                text.textContent = 'Modo local';
-                user.textContent = 'Sin conexión';
-                configStatus.className = 'config-current disconnected';
-                configStatus.textContent = 'Estado: Modo local (sin conexión a servidor)';
-            }
-
-            if (pendientes.length > 0) {
-                badge.style.display = '';
-                badge.textContent = pendientes.length + ' pendiente' + (pendientes.length > 1 ? 's' : '');
-            } else {
-                badge.style.display = 'none';
-            }
-        }
-
-        // Auto-login si hay sesión guardada
-        async function intentarAutoLogin() {
-            cargarConfiguracion();
-            const config = JSON.parse(localStorage.getItem('pbConfig') || '{}');
-
-            // Intentar recuperar sesión anterior del SDK
-            if (config.serverUrl && typeof PocketBase !== 'undefined') {
-                pb = new PocketBase(config.serverUrl);
-                if (pb.authStore.isValid) {
-                    try {
-                        await pb.collection('users').authRefresh();
-                        modoConexion = 'online';
-                        mostrarApp();
-                        actualizarStatusBar();
-                        suscribirTiempoReal();
-                        sincronizarPendientes();
-                        return;
-                    } catch (e) {
-                        pb.authStore.clear();
-                        pb = null;
-                    }
-                }
-            }
-            // Si no se pudo auto-login, mostrar pantalla de login
-        }
-
-        // Suscripciones en tiempo real
-        function suscribirTiempoReal() {
-            if (!pb || modoConexion !== 'online') return;
-
-            pb.collection('inspecciones').subscribe('*', function(e) {
-                // Actualizar historial si está visible
-                if (document.getElementById('tabHistorial').classList.contains('active')) {
-                    cargarHistorial();
-                }
-            });
-        }
-
-        // ==========================================
-        // CONEXIÓN DESDE CONFIGURACIÓN
-        // ==========================================
-        async function conectarServidor() {
-            const url = document.getElementById('configUrl').value.trim();
-            const email = document.getElementById('configEmail').value.trim();
-            const password = document.getElementById('configPassword').value;
-
-            if (!url || !email || !password) {
-                alert('Completa todos los campos de conexión');
-                return;
-            }
-
-            try {
-                pb = new PocketBase(url);
-                await pb.collection('users').authWithPassword(email, password);
-
-                guardarConfiguracion(url, email);
-                modoConexion = 'online';
-                actualizarStatusBar();
-                suscribirTiempoReal();
-                sincronizarPendientes();
-                alert('Conectado exitosamente a ' + url);
-            } catch (err) {
-                alert('Error al conectar: ' + (err.message || 'Verifica la URL y credenciales'));
-                pb = null;
-            }
-        }
-
-        function desconectarServidor() {
-            if (pb) {
-                pb.collection('inspecciones').unsubscribe();
-                pb.authStore.clear();
-            }
-            pb = null;
-            modoConexion = 'offline';
-            actualizarStatusBar();
-            alert('Desconectado del servidor. Los datos se guardarán localmente.');
-        }
-
-        // ==========================================
-        // GUARDAR REGISTRO (PocketBase + localStorage)
-        // ==========================================
-        async function guardarRegistro(datos) {
-            // Siempre guardar en localStorage como respaldo
-            let registros = JSON.parse(localStorage.getItem('registrosTV') || '[]');
-            registros.push(datos);
-            localStorage.setItem('registrosTV', JSON.stringify(registros));
-
-            // Si estamos online, enviar a PocketBase
-            if (modoConexion === 'online' && pb && pb.authStore.isValid) {
-                try {
-                    const pbDatos = {
-                        licensePlate: datos.licensePlate || '',
-                        sku: datos.sku || '',
-                        marca: datos.marca || '',
-                        modelo: datos.modelo || '',
-                        descripcion: datos.descripcion || '',
-                        pulgada: datos.pulgada || '',
-                        clasificacion: datos.clasificacion || '',
-                        clasificacionCaja: datos.clasificacionCaja || '',
-                        accesorios: datos.accesorios || '',
-                        proteccion: datos.proteccion || '',
-                        estadoAudio: datos.estadoAudio || '',
-                        estadoVideo: datos.estadoVideo || '',
-                        estadoPantalla: datos.estadoPantalla || '',
-                        estadoChasis: datos.estadoChasis || '',
-                        estadoAQL: datos.estadoAQL || '',
-                        fecha: datos.fecha || new Date().toISOString(),
-                        inspector: pb.authStore.record.email
-                    };
-                    await pb.collection('inspecciones').create(pbDatos);
-                    console.log('Registro guardado en PocketBase');
-                } catch (err) {
-                    console.warn('Error al guardar en PocketBase, guardando como pendiente:', err);
-                    agregarPendiente(datos);
-                }
-            } else {
-                // Offline: guardar como pendiente para sincronizar después
-                agregarPendiente(datos);
-            }
-
-            actualizarStatusBar();
-        }
-
-        function agregarPendiente(datos) {
-            let pendientes = JSON.parse(localStorage.getItem('pendingSync') || '[]');
-            pendientes.push(datos);
-            localStorage.setItem('pendingSync', JSON.stringify(pendientes));
-        }
-
-        // ==========================================
-        // SINCRONIZACIÓN DE PENDIENTES
-        // ==========================================
-        async function sincronizarPendientes() {
-            if (modoConexion !== 'online' || !pb || !pb.authStore.isValid) {
-                alert('Necesitas estar conectado a PocketBase para sincronizar.');
-                return;
-            }
-
-            const pendientes = JSON.parse(localStorage.getItem('pendingSync') || '[]');
-            if (pendientes.length === 0) {
-                actualizarStatusBar();
-                return;
-            }
-
-            const dot = document.getElementById('statusDot');
-            dot.className = 'status-dot syncing';
-            document.getElementById('statusText').textContent = 'Sincronizando...';
-
-            let exitosos = 0;
-            let fallidos = [];
-
-            for (const datos of pendientes) {
-                try {
-                    await pb.collection('inspecciones').create({
-                        licensePlate: datos.licensePlate || '',
-                        sku: datos.sku || '',
-                        marca: datos.marca || '',
-                        modelo: datos.modelo || '',
-                        descripcion: datos.descripcion || '',
-                        pulgada: datos.pulgada || '',
-                        clasificacion: datos.clasificacion || '',
-                        clasificacionCaja: datos.clasificacionCaja || '',
-                        accesorios: datos.accesorios || '',
-                        proteccion: datos.proteccion || '',
-                        estadoAudio: datos.estadoAudio || '',
-                        estadoVideo: datos.estadoVideo || '',
-                        estadoPantalla: datos.estadoPantalla || '',
-                        estadoChasis: datos.estadoChasis || '',
-                        estadoAQL: datos.estadoAQL || '',
-                        fecha: datos.fecha || '',
-                        inspector: pb.authStore.record.email
-                    });
-                    exitosos++;
-                } catch (err) {
-                    console.warn('Error sincronizando registro:', err);
-                    fallidos.push(datos);
-                }
-            }
-
-            localStorage.setItem('pendingSync', JSON.stringify(fallidos));
-            actualizarStatusBar();
-
-            if (exitosos > 0) {
-                console.log('Sincronizados ' + exitosos + ' registros');
-            }
-            if (fallidos.length > 0) {
-                alert(exitosos + ' registros sincronizados. ' + fallidos.length + ' fallaron (se reintentarán).');
-            }
-        }
-
-        // Detectar cambio online/offline
-        window.addEventListener('online', function() {
-            if (pb && pb.authStore.isValid) {
-                modoConexion = 'online';
-                actualizarStatusBar();
-                sincronizarPendientes();
-            }
-        });
-
-        window.addEventListener('offline', function() {
-            if (modoConexion === 'online') {
-                document.getElementById('statusDot').className = 'status-dot offline';
-                document.getElementById('statusText').textContent = 'Sin internet (guardando local)';
-            }
-        });
-
-        // ==========================================
-        // CARGAR HISTORIAL (PocketBase o localStorage)
-        // ==========================================
-        async function cargarHistorial() {
-            let registros = [];
-
-            if (modoConexion === 'online' && pb && pb.authStore.isValid) {
-                try {
-                    const result = await pb.collection('inspecciones').getFullList({
-                        sort: '-created'
-                    });
-                    // Mapear campos de PocketBase al formato local
-                    registros = result.map(r => ({
-                        id: r.id,
-                        licensePlate: r.licensePlate,
-                        sku: r.sku,
-                        marca: r.marca,
-                        modelo: r.modelo,
-                        descripcion: r.descripcion,
-                        pulgada: r.pulgada,
-                        clasificacion: r.clasificacion,
-                        clasificacionCaja: r.clasificacionCaja,
-                        accesorios: r.accesorios,
-                        proteccion: r.proteccion,
-                        estadoAudio: r.estadoAudio,
-                        estadoVideo: r.estadoVideo,
-                        estadoPantalla: r.estadoPantalla,
-                        estadoChasis: r.estadoChasis,
-                        estadoAQL: r.estadoAQL,
-                        fecha: r.fecha || r.created,
-                        inspector: r.inspector
-                    }));
-                    // Cache local
-                    historialCache = registros;
-                } catch (err) {
-                    console.warn('Error cargando desde PocketBase, usando local:', err);
-                    registros = JSON.parse(localStorage.getItem('registrosTV') || '[]');
-                }
-            } else {
-                registros = JSON.parse(localStorage.getItem('registrosTV') || '[]');
-            }
-
-            actualizarEstadisticas(registros);
-            renderizarTabla(registros);
-        }
-
-        let historialCache = [];
-
-        // ==========================================
-        // ELIMINAR REGISTRO
-        // ==========================================
-        async function eliminarRegistro(idOrIndex) {
-            if (!confirm('¿Estás seguro de eliminar este registro?')) return;
-
-            if (modoConexion === 'online' && pb && pb.authStore.isValid && typeof idOrIndex === 'string') {
-                try {
-                    await pb.collection('inspecciones').delete(idOrIndex);
-                    cargarHistorial();
-                    return;
-                } catch (err) {
-                    console.warn('Error eliminando de PocketBase:', err);
-                }
-            }
-
-            // Fallback: eliminar de localStorage
-            let registros = JSON.parse(localStorage.getItem('registrosTV') || '[]');
-            if (typeof idOrIndex === 'number') {
-                registros.splice(idOrIndex, 1);
-                localStorage.setItem('registrosTV', JSON.stringify(registros));
-            }
-            cargarHistorial();
-        }
-
-        async function limpiarHistorial() {
-            if (modoConexion === 'online' && pb && pb.authStore.isValid) {
-                const registros = historialCache;
-                if (registros.length === 0) { alert('No hay registros para eliminar.'); return; }
-                if (!confirm('¿Eliminar TODOS los ' + registros.length + ' registros del servidor? Esta acción no se puede deshacer.')) return;
-
-                for (const r of registros) {
-                    try { await pb.collection('inspecciones').delete(r.id); } catch(e) {}
-                }
-                localStorage.removeItem('registrosTV');
-                cargarHistorial();
-            } else {
-                const registros = JSON.parse(localStorage.getItem('registrosTV') || '[]');
-                if (registros.length === 0) { alert('No hay registros para eliminar.'); return; }
-                if (!confirm('¿Eliminar TODOS los registros locales? Esta acción no se puede deshacer.')) return;
-                localStorage.removeItem('registrosTV');
-                cargarHistorial();
-            }
-        }
-
-        // ==========================================
-        // BACKUP LOCAL
-        // ==========================================
-        function descargarBackupLocal() {
-            const registros = JSON.parse(localStorage.getItem('registrosTV') || '[]');
-            const pendientes = JSON.parse(localStorage.getItem('pendingSync') || '[]');
-            const backup = { registros: registros, pendientes: pendientes, fecha: new Date().toISOString() };
-
-            const blob = new Blob([JSON.stringify(backup, null, 2)], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'AQL_Backup_' + new Date().toISOString().slice(0,10) + '.json';
-            a.click();
-            URL.revokeObjectURL(url);
-        }
-
-        // ==========================================
         // DATOS Y TOM SELECT
         // ==========================================
         let datosRegistro = {};
@@ -50487,7 +49756,7 @@
         }
 
         // Manejar envío del formulario
-        document.getElementById('aqlForm').addEventListener('submit', async function(e) {
+        document.getElementById('aqlForm').addEventListener('submit', function(e) {
             e.preventDefault();
 
             // Validar paso 2
@@ -50551,8 +49820,8 @@
             datosRegistro.estadoAQL = estadoAQL;
             datosRegistro.fecha = new Date().toISOString();
 
-            // Guardar registro (PocketBase + localStorage)
-            await guardarRegistro(datosRegistro);
+            // Guardar registro
+            guardarRegistro(datosRegistro);
 
             mostrarAlerta('Registro guardado exitosamente', 'success');
 
@@ -50561,6 +49830,14 @@
             }, 2000);
         });
 
+        // Guardar registro en localStorage
+        function guardarRegistro(datos) {
+            let registros = JSON.parse(localStorage.getItem('registrosTV') || '[]');
+            registros.push(datos);
+            localStorage.setItem('registrosTV', JSON.stringify(registros));
+            console.log('Registro guardado:', datos);
+        }
+
         // ==========================================
         // NAVEGACIÓN POR PESTAÑAS
         // ==========================================
@@ -50568,23 +49845,27 @@
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
 
-            const tabs = document.querySelectorAll('.tab-btn');
             if (tab === 'registro') {
-                tabs[0].classList.add('active');
+                document.querySelectorAll('.tab-btn')[0].classList.add('active');
                 document.getElementById('tabRegistro').classList.add('active');
                 document.getElementById('headerTitle').textContent =
                     document.getElementById('step2').classList.contains('active') ? 'Proceso AQL' : 'Registro de Datos';
-            } else if (tab === 'historial') {
-                tabs[1].classList.add('active');
+            } else {
+                document.querySelectorAll('.tab-btn')[1].classList.add('active');
                 document.getElementById('tabHistorial').classList.add('active');
                 document.getElementById('headerTitle').textContent = 'Historial de Registros';
                 cargarHistorial();
-            } else if (tab === 'config') {
-                tabs[2].classList.add('active');
-                document.getElementById('tabConfig').classList.add('active');
-                document.getElementById('headerTitle').textContent = 'Configuración';
             }
             window.scrollTo(0, 0);
+        }
+
+        // ==========================================
+        // HISTORIAL DE REGISTROS
+        // ==========================================
+        function cargarHistorial() {
+            const registros = JSON.parse(localStorage.getItem('registrosTV') || '[]');
+            actualizarEstadisticas(registros);
+            renderizarTabla(registros);
         }
 
         function actualizarEstadisticas(registros) {
@@ -50633,11 +49914,13 @@
             tableWrapper.style.display = 'block';
             emptyState.style.display = 'none';
 
-            tbody.innerHTML = registros.map((r, i) => {
-                // Si tiene ID de PocketBase, usar ese; si no, usar índice
-                const deleteArg = r.id ? "'" + r.id + "'" : (registros.length - 1 - i);
+            // Mostrar del más reciente al más antiguo
+            const registrosOrdenados = [...registros].reverse();
+
+            tbody.innerHTML = registrosOrdenados.map((r, i) => {
+                const idx = registros.length - 1 - i;
                 return '<tr>' +
-                    '<td>' + (i + 1) + '</td>' +
+                    '<td>' + (registros.length - i) + '</td>' +
                     '<td>' + formatearFecha(r.fecha) + '</td>' +
                     '<td><strong>' + (r.licensePlate || '-') + '</strong></td>' +
                     '<td>' + (r.sku || '-') + '</td>' +
@@ -50653,7 +49936,7 @@
                     '<td>' + getBadgeEstado(r.estadoPantalla) + '</td>' +
                     '<td>' + getBadgeEstado(r.estadoChasis) + '</td>' +
                     '<td>' + getBadgeEstado(r.estadoAQL) + '</td>' +
-                    '<td><button class="btn-delete-row" onclick="eliminarRegistro(' + deleteArg + ')">Eliminar</button></td>' +
+                    '<td><button class="btn-delete-row" onclick="eliminarRegistro(' + idx + ')">Eliminar</button></td>' +
                 '</tr>';
             }).join('');
         }
@@ -50663,13 +49946,7 @@
             const filtroAQL = document.getElementById('filtroAQL').value;
             const filtroClasif = document.getElementById('filtroClasificacion').value;
 
-            // Usar cache si estamos online, si no usar localStorage
-            let registros;
-            if (modoConexion === 'online' && historialCache.length > 0) {
-                registros = historialCache;
-            } else {
-                registros = JSON.parse(localStorage.getItem('registrosTV') || '[]');
-            }
+            let registros = JSON.parse(localStorage.getItem('registrosTV') || '[]');
 
             const filtrados = registros.filter(r => {
                 if (texto) {
@@ -50685,17 +49962,32 @@
             renderizarTabla(filtrados);
         }
 
+        function eliminarRegistro(indice) {
+            if (!confirm('¿Estás seguro de eliminar este registro?')) return;
+
+            let registros = JSON.parse(localStorage.getItem('registrosTV') || '[]');
+            registros.splice(indice, 1);
+            localStorage.setItem('registrosTV', JSON.stringify(registros));
+            cargarHistorial();
+        }
+
+        function limpiarHistorial() {
+            const registros = JSON.parse(localStorage.getItem('registrosTV') || '[]');
+            if (registros.length === 0) {
+                alert('No hay registros para eliminar.');
+                return;
+            }
+            if (!confirm('¿Estás seguro de eliminar TODOS los registros? Esta acción no se puede deshacer.')) return;
+
+            localStorage.removeItem('registrosTV');
+            cargarHistorial();
+        }
+
         // ==========================================
         // EXPORTAR A EXCEL
         // ==========================================
-        async function exportarExcel() {
-            let registros;
-            if (modoConexion === 'online' && historialCache.length > 0) {
-                registros = historialCache;
-            } else {
-                registros = JSON.parse(localStorage.getItem('registrosTV') || '[]');
-            }
-
+        function exportarExcel() {
+            const registros = JSON.parse(localStorage.getItem('registrosTV') || '[]');
             if (registros.length === 0) {
                 alert('No hay registros para exportar.');
                 return;
@@ -50718,8 +50010,7 @@
                 'Estado Video': r.estadoVideo || '',
                 'Estado Pantalla': r.estadoPantalla || '',
                 'Estado Chasis': r.estadoChasis || '',
-                'Estado AQL': r.estadoAQL || '',
-                'Inspector': r.inspector || ''
+                'Estado AQL': r.estadoAQL || ''
             }));
 
             const wb = XLSX.utils.book_new();
@@ -50728,7 +50019,7 @@
             ws['!cols'] = [
                 {wch: 5}, {wch: 20}, {wch: 16}, {wch: 14}, {wch: 12}, {wch: 16},
                 {wch: 30}, {wch: 8}, {wch: 12}, {wch: 18}, {wch: 18}, {wch: 20},
-                {wch: 14}, {wch: 14}, {wch: 14}, {wch: 14}, {wch: 14}, {wch: 20}
+                {wch: 14}, {wch: 14}, {wch: 14}, {wch: 14}, {wch: 14}
             ];
 
             XLSX.utils.book_append_sheet(wb, ws, 'Registros AQL');
@@ -50736,11 +50027,6 @@
             const fecha = new Date().toISOString().slice(0, 10);
             XLSX.writeFile(wb, 'AQL_Registros_' + fecha + '.xlsx');
         }
-
-        // ==========================================
-        // INICIALIZAR APP
-        // ==========================================
-        intentarAutoLogin();
     </script>
 </body>
 </html>
