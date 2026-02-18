@@ -50315,7 +50315,7 @@
                 actualizarStatusBar('syncing', 'Cargando...');
                 try {
                     const result = await pb.collection('inspecciones').getFullList({
-                        sort: '-created'
+                        sort: '-fecha'
                     });
                     const registros = result.map(r => ({
                         id: r.id,
@@ -50334,7 +50334,7 @@
                         estadoPantalla: r.estadoPantalla,
                         estadoChasis: r.estadoChasis,
                         estadoAQL: r.estadoAQL,
-                        fecha: r.fecha || r.created,
+                        fecha: r.fecha || '',
                         inspector: r.inspector
                     }));
                     actualizarEstadisticas(registros);
@@ -50488,7 +50488,7 @@
 
                     const filterStr = filters.length > 0 ? filters.join(' && ') : '';
                     const result = await pb.collection('inspecciones').getFullList({
-                        sort: '-created',
+                        sort: '-fecha',
                         filter: filterStr
                     });
 
@@ -50509,7 +50509,7 @@
                         estadoPantalla: r.estadoPantalla,
                         estadoChasis: r.estadoChasis,
                         estadoAQL: r.estadoAQL,
-                        fecha: r.fecha || r.created,
+                        fecha: r.fecha || '',
                         inspector: r.inspector
                     }));
                     actualizarEstadisticas(registros);
@@ -50610,7 +50610,7 @@
             if (pbConectado && pb.authStore.isValid) {
                 try {
                     const result = await pb.collection('inspecciones').getFullList({
-                        sort: '-created'
+                        sort: '-fecha'
                     });
                     registros = result.map(r => ({
                         licensePlate: r.licensePlate,
@@ -50628,7 +50628,7 @@
                         estadoPantalla: r.estadoPantalla,
                         estadoChasis: r.estadoChasis,
                         estadoAQL: r.estadoAQL,
-                        fecha: r.fecha || r.created,
+                        fecha: r.fecha || '',
                         inspector: r.inspector
                     }));
                 } catch(err) {
