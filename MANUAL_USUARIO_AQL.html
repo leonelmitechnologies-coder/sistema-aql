@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual de Usuario - Sistema AQL Control de Calidad</title>
+    <style>
+        @page {
+            size: letter;
+            margin: 2cm 2.5cm;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, Arial, sans-serif;
+            font-size: 11pt;
+            color: #1a1a1a;
+            line-height: 1.6;
+            background: #ffffff;
+        }
+
+        /* COVER PAGE */
+        .cover {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            page-break-after: always;
+            padding: 40px;
+        }
+
+        .cover-logo {
+            width: 80px;
+            height: 80px;
+            background: #212529;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 40px;
+        }
+
+        .cover h1 {
+            font-size: 32pt;
+            font-weight: 700;
+            color: #212529;
+            letter-spacing: -1px;
+            margin-bottom: 8px;
+        }
+
+        .cover h2 {
+            font-size: 14pt;
+            font-weight: 400;
+            color: #6c757d;
+            margin-bottom: 60px;
+        }
+
+        .cover-info {
+            font-size: 10pt;
+            color: #6c757d;
+            line-height: 2;
+        }
+
+        .cover-info strong {
+            color: #212529;
+        }
+
+        /* TABLE OF CONTENTS */
+        .toc {
+            page-break-after: always;
+            padding: 60px 0;
+        }
+
+        .toc h2 {
+            font-size: 18pt;
+            font-weight: 700;
+            color: #212529;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #212529;
+        }
+
+        .toc-list {
+            list-style: none;
+        }
+
+        .toc-list li {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding: 8px 0;
+            border-bottom: 1px dotted #ccc;
+            font-size: 11pt;
+        }
+
+        .toc-list li.toc-section {
+            font-weight: 600;
+            color: #212529;
+            margin-top: 12px;
+            border-bottom-color: #999;
+        }
+
+        .toc-list li.toc-sub {
+            padding-left: 20px;
+            font-weight: 400;
+            color: #495057;
+        }
+
+        /* CONTENT */
+        .page {
+            page-break-before: always;
+            padding-top: 20px;
+        }
+
+        .page:first-of-type {
+            page-break-before: auto;
+        }
+
+        h2.section-title {
+            font-size: 18pt;
+            font-weight: 700;
+            color: #212529;
+            margin-bottom: 6px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #212529;
+        }
+
+        h3 {
+            font-size: 13pt;
+            font-weight: 600;
+            color: #212529;
+            margin-top: 24px;
+            margin-bottom: 10px;
+        }
+
+        h4 {
+            font-size: 11pt;
+            font-weight: 600;
+            color: #495057;
+            margin-top: 18px;
+            margin-bottom: 8px;
+        }
+
+        p {
+            margin-bottom: 10px;
+            text-align: justify;
+        }
+
+        .section-num {
+            color: #6c757d;
+            font-weight: 400;
+        }
+
+        ul, ol {
+            margin-left: 20px;
+            margin-bottom: 12px;
+        }
+
+        li {
+            margin-bottom: 4px;
+        }
+
+        .info-box {
+            background: #f8f9fa;
+            border-left: 4px solid #212529;
+            padding: 14px 18px;
+            margin: 16px 0;
+            font-size: 10pt;
+        }
+
+        .info-box.tip {
+            border-left-color: #198754;
+        }
+
+        .info-box.warning {
+            border-left-color: #ffc107;
+        }
+
+        .info-box.important {
+            border-left-color: #dc3545;
+        }
+
+        .info-box strong {
+            display: block;
+            margin-bottom: 4px;
+            font-size: 10pt;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 10pt;
+        }
+
+        th {
+            background: #212529;
+            color: #ffffff;
+            padding: 10px 12px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 9pt;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        td {
+            padding: 8px 12px;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        code {
+            background: #f0f0f0;
+            padding: 2px 6px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 9.5pt;
+            color: #d63384;
+        }
+
+        .step-box {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            margin: 14px 0;
+            padding: 14px;
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+        }
+
+        .step-num {
+            background: #212529;
+            color: #ffffff;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 13px;
+            flex-shrink: 0;
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-content strong {
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            font-size: 9pt;
+            font-weight: 600;
+        }
+
+        .badge-green { background: #d1e7dd; color: #0f5132; }
+        .badge-red { background: #f8d7da; color: #842029; }
+        .badge-blue { background: #cfe2ff; color: #084298; }
+        .badge-yellow { background: #fff3cd; color: #664d03; }
+
+        .screenshot-placeholder {
+            background: #f0f0f0;
+            border: 2px dashed #ccc;
+            padding: 40px;
+            text-align: center;
+            color: #999;
+            margin: 16px 0;
+            font-size: 10pt;
+        }
+
+        .flow-diagram {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .flow-box {
+            background: #212529;
+            color: #fff;
+            padding: 10px 16px;
+            font-size: 9pt;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .flow-arrow {
+            color: #6c757d;
+            font-size: 16pt;
+        }
+
+        .footer-note {
+            margin-top: 40px;
+            padding-top: 16px;
+            border-top: 1px solid #dee2e6;
+            font-size: 9pt;
+            color: #6c757d;
+            text-align: center;
+        }
+
+        @media print {
+            body { font-size: 10pt; }
+            .no-print { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PORTADA -->
+    <div class="cover">
+        <div class="cover-logo">AQL</div>
+        <h1>Sistema AQL</h1>
+        <h2>Control de Calidad - Manual de Usuario</h2>
+        <div class="cover-info">
+            <strong>Versión:</strong> 1.0<br>
+            <strong>Fecha:</strong> Febrero 2026<br>
+            <strong>Departamento:</strong> Control de Calidad - MITECH<br>
+            <strong>Clasificación:</strong> Uso interno
+        </div>
+    </div>
+
+    <!-- TABLA DE CONTENIDOS -->
+    <div class="toc">
+        <h2>Contenido</h2>
+        <ul class="toc-list">
+            <li class="toc-section"><span>1. Introducción</span></li>
+            <li class="toc-sub"><span>1.1 ¿Qué es el Sistema AQL?</span></li>
+            <li class="toc-sub"><span>1.2 ¿Para qué sirve?</span></li>
+            <li class="toc-sub"><span>1.3 Requisitos</span></li>
+            <li class="toc-section"><span>2. Acceso al Sistema</span></li>
+            <li class="toc-sub"><span>2.1 URL de acceso</span></li>
+            <li class="toc-sub"><span>2.2 Credenciales de usuario</span></li>
+            <li class="toc-sub"><span>2.3 Inicio de sesión</span></li>
+            <li class="toc-section"><span>3. Registro de Inspección</span></li>
+            <li class="toc-sub"><span>3.1 Paso 1: Datos de la televisión</span></li>
+            <li class="toc-sub"><span>3.2 Paso 2: Proceso AQL</span></li>
+            <li class="toc-section"><span>4. Historial de Registros</span></li>
+            <li class="toc-sub"><span>4.1 Consultar registros</span></li>
+            <li class="toc-sub"><span>4.2 Filtrar registros</span></li>
+            <li class="toc-sub"><span>4.3 Exportar a Excel</span></li>
+            <li class="toc-sub"><span>4.4 Eliminar registros</span></li>
+            <li class="toc-section"><span>5. Dashboard</span></li>
+            <li class="toc-sub"><span>5.1 Indicadores KPI</span></li>
+            <li class="toc-sub"><span>5.2 Gráficos</span></li>
+            <li class="toc-section"><span>6. Funcionamiento Multi-equipo</span></li>
+            <li class="toc-sub"><span>6.1 Sincronización en tiempo real</span></li>
+            <li class="toc-sub"><span>6.2 Modo sin conexión</span></li>
+            <li class="toc-section"><span>7. Referencia Rápida</span></li>
+        </ul>
+    </div>
+
+    <!-- SECCIÓN 1 -->
+    <div class="page">
+        <h2 class="section-title"><span class="section-num">1.</span> Introducción</h2>
+
+        <h3>1.1 ¿Qué es el Sistema AQL?</h3>
+        <p>
+            El Sistema AQL (Acceptable Quality Level) es una aplicación web diseñada para el departamento de Control de Calidad. Permite registrar, gestionar y analizar las inspecciones de calidad realizadas a televisores durante el proceso de recepción y verificación.
+        </p>
+        <p>
+            El sistema opera de forma centralizada utilizando una base de datos <strong>PocketBase</strong>, lo que permite que múltiples inspectores trabajen simultáneamente desde diferentes dispositivos, compartiendo los datos en tiempo real.
+        </p>
+
+        <h3>1.2 ¿Para qué sirve?</h3>
+        <ul>
+            <li><strong>Registrar inspecciones</strong> de televisores con datos completos (SKU, marca, modelo, clasificación, estado de componentes)</li>
+            <li><strong>Evaluar calidad</strong> siguiendo el proceso AQL: caja, accesorios, protección, audio, video, pantalla y chasis</li>
+            <li><strong>Determinar aceptación o rechazo</strong> de cada unidad inspeccionada</li>
+            <li><strong>Consultar historial</strong> de todas las inspecciones realizadas por cualquier inspector</li>
+            <li><strong>Visualizar estadísticas</strong> mediante gráficos interactivos en el Dashboard</li>
+            <li><strong>Exportar datos</strong> a Excel para reportes y análisis externos</li>
+            <li><strong>Trabajo multi-equipo</strong> con datos sincronizados en tiempo real</li>
+        </ul>
+
+        <h3>1.3 Requisitos</h3>
+        <table>
+            <tr>
+                <th>Requisito</th>
+                <th>Detalle</th>
+            </tr>
+            <tr>
+                <td>Navegador web</td>
+                <td>Google Chrome, Microsoft Edge, Firefox (versión reciente)</td>
+            </tr>
+            <tr>
+                <td>Conexión de red</td>
+                <td>Estar conectado a la red local (Wi-Fi o cable)</td>
+            </tr>
+            <tr>
+                <td>Dispositivo</td>
+                <td>PC, laptop, tablet o celular con navegador</td>
+            </tr>
+            <tr>
+                <td>Credenciales</td>
+                <td>Email y contraseña de inspector proporcionados por el administrador</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- SECCIÓN 2 -->
+    <div class="page">
+        <h2 class="section-title"><span class="section-num">2.</span> Acceso al Sistema</h2>
+
+        <h3>2.1 URL de acceso</h3>
+        <p>Para acceder al sistema, abra su navegador web e ingrese la siguiente dirección:</p>
+
+        <div class="info-box">
+            <strong>Dirección del sistema</strong>
+            http://192.168.80.149:8091
+        </div>
+
+        <div class="info-box tip">
+            <strong>Consejo</strong>
+            Guarde esta dirección como favorito en su navegador para acceder rápidamente.
+        </div>
+
+        <h3>2.2 Credenciales de usuario</h3>
+        <p>Cada inspector tiene un usuario y contraseña asignados. Las credenciales actuales del sistema son:</p>
+
+        <table>
+            <tr>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Contraseña</th>
+            </tr>
+            <tr>
+                <td>Leonel Hernandez</td>
+                <td><code>leonel.hernandez@aql-calidad.com</code></td>
+                <td><code>1900851Sm</code></td>
+            </tr>
+            <tr>
+                <td>Sergio Santiago</td>
+                <td><code>sergio.santiago@aql-calidad.com</code></td>
+                <td><code>98981212</code></td>
+            </tr>
+            <tr>
+                <td>Carlos Aguilar</td>
+                <td><code>carlos.aguilar@aql-calidad.com</code></td>
+                <td><code>20262020</code></td>
+            </tr>
+            <tr>
+                <td>Calidad Mitech</td>
+                <td><code>calidad.mitech@aql-calidad.com</code></td>
+                <td><code>98512623</code></td>
+            </tr>
+        </table>
+
+        <div class="info-box important">
+            <strong>Importante</strong>
+            No comparta sus credenciales con personas no autorizadas. Cada inspector debe usar su propio usuario para garantizar la trazabilidad de las inspecciones.
+        </div>
+
+        <h3>2.3 Inicio de sesión</h3>
+        <p>Al abrir el sistema, aparecerá la pantalla de inicio de sesión:</p>
+
+        <div class="step-box">
+            <div class="step-num">1</div>
+            <div class="step-content">
+                <strong>Ingrese su correo electrónico</strong>
+                Escriba el email asignado en el campo "Correo electrónico".
+            </div>
+        </div>
+
+        <div class="step-box">
+            <div class="step-num">2</div>
+            <div class="step-content">
+                <strong>Ingrese su contraseña</strong>
+                Escriba su contraseña en el campo "Contraseña".
+            </div>
+        </div>
+
+        <div class="step-box">
+            <div class="step-num">3</div>
+            <div class="step-content">
+                <strong>Haga clic en "Iniciar Sesión"</strong>
+                Si las credenciales son correctas, accederá al sistema. Si son incorrectas, aparecerá un mensaje de error.
+            </div>
+        </div>
+
+        <div class="info-box tip">
+            <strong>Sesión guardada</strong>
+            El sistema recuerda su sesión. Si cierra el navegador y vuelve a abrir la página, no necesitará iniciar sesión nuevamente (a menos que haya cerrado sesión manualmente).
+        </div>
+    </div>
+
+    <!-- SECCIÓN 3 -->
+    <div class="page">
+        <h2 class="section-title"><span class="section-num">3.</span> Registro de Inspección</h2>
+
+        <p>El registro de cada inspección se realiza en dos pasos. Esta es la pestaña principal del sistema y la que usará con mayor frecuencia.</p>
+
+        <h3>3.1 Paso 1: Datos de la televisión</h3>
+
+        <p>En este paso se capturan los datos de identificación del televisor:</p>
+
+        <h4>License Plate (Placa)</h4>
+        <p>Escanee o escriba el código de placa del televisor. Este campo es <strong>obligatorio</strong> y sirve como identificador único de la unidad.</p>
+
+        <h4>SKU</h4>
+        <p>Utilice el campo de búsqueda inteligente para encontrar el SKU. Puede buscar por:</p>
+        <ul>
+            <li>Código SKU (ej: SNTV007001)</li>
+            <li>Nombre de marca (ej: Samsung)</li>
+            <li>Número de modelo</li>
+        </ul>
+        <p>Al seleccionar un SKU, los campos <strong>Marca</strong>, <strong>Modelo</strong>, <strong>Descripción</strong> y <strong>Pulgada</strong> se llenan automáticamente.</p>
+
+        <div class="info-box tip">
+            <strong>Consejo</strong>
+            Escriba al menos 2 caracteres para que aparezcan las sugerencias. El catálogo contiene todos los SKUs registrados en el sistema.
+        </div>
+
+        <h4>Clasificación</h4>
+        <p>Seleccione la clasificación del televisor. Las opciones disponibles son:</p>
+        <table>
+            <tr><th>Código</th><th>Significado</th></tr>
+            <tr><td>GRA</td><td>Grado A</td></tr>
+            <tr><td>GRB</td><td>Grado B</td></tr>
+            <tr><td>GRC</td><td>Grado C</td></tr>
+            <tr><td>ICB</td><td>Incompleto B</td></tr>
+            <tr><td>ICC</td><td>Incompleto C</td></tr>
+            <tr><td>ICD</td><td>Incompleto D</td></tr>
+            <tr><td>ICX</td><td>Incompleto X</td></tr>
+            <tr><td>BOX</td><td>Solo caja</td></tr>
+        </table>
+
+        <p>Una vez completados todos los campos obligatorios, haga clic en <strong>"Siguiente"</strong> para continuar al Paso 2.</p>
+    </div>
+
+    <!-- SECCIÓN 3.2 -->
+    <div class="page">
+        <h3>3.2 Paso 2: Proceso AQL</h3>
+
+        <p>En este paso se evalúa la calidad del televisor en diferentes aspectos. Todos los campos son obligatorios.</p>
+
+        <h4>Evaluación de la caja y accesorios</h4>
+        <table>
+            <tr><th>Campo</th><th>Opciones</th><th>Descripción</th></tr>
+            <tr>
+                <td>¿Clasificación coincide con caja?</td>
+                <td><span class="badge badge-green">SI</span> / <span class="badge badge-red">NO</span></td>
+                <td>Verificar que la clasificación asignada coincide con el estado real de la caja</td>
+            </tr>
+            <tr>
+                <td>¿Accesorios conformes?</td>
+                <td><span class="badge badge-green">SI</span> / <span class="badge badge-red">NO</span></td>
+                <td>Verificar que todos los accesorios estén presentes y en buen estado</td>
+            </tr>
+            <tr>
+                <td>¿Protección en buen estado?</td>
+                <td><span class="badge badge-green">SI</span> / <span class="badge badge-red">NO</span></td>
+                <td>Verificar el estado de las protecciones internas (espuma, plástico, etc.)</td>
+            </tr>
+        </table>
+
+        <h4>Evaluación de componentes</h4>
+        <p>Para cada componente, seleccione uno de los tres estados posibles:</p>
+
+        <table>
+            <tr><th>Estado</th><th>Significado</th><th>Cuándo usarlo</th></tr>
+            <tr>
+                <td><span class="badge badge-green">Excelente</span></td>
+                <td>Sin defectos</td>
+                <td>El componente funciona perfectamente, sin ningún problema visible o audible</td>
+            </tr>
+            <tr>
+                <td><span class="badge badge-yellow">Buen Estado</span></td>
+                <td>Defectos menores</td>
+                <td>Funciona correctamente pero con imperfecciones menores aceptables</td>
+            </tr>
+            <tr>
+                <td><span class="badge badge-red">Con Problemas</span></td>
+                <td>Defectos significativos</td>
+                <td>Presenta fallas, daños o defectos que afectan la funcionalidad</td>
+            </tr>
+        </table>
+
+        <p>Los componentes evaluados son:</p>
+        <ul>
+            <li><strong>Audio</strong> - Funcionamiento de bocinas y salida de sonido</li>
+            <li><strong>Video</strong> - Calidad de imagen, resolución, colores</li>
+            <li><strong>Pantalla</strong> - Estado físico del panel (rayaduras, manchas, píxeles muertos)</li>
+            <li><strong>Chasis</strong> - Estado físico de la carcasa y estructura</li>
+        </ul>
+
+        <h4>Resultado AQL</h4>
+        <p>Finalmente, determine el resultado de la inspección:</p>
+        <ul>
+            <li><span class="badge badge-green">ACEPTADO</span> - La unidad cumple con los estándares de calidad</li>
+            <li><span class="badge badge-red">RECHAZADO</span> - La unidad NO cumple con los estándares de calidad</li>
+        </ul>
+
+        <p>Al hacer clic en <strong>"Guardar Registro"</strong>, la inspección se almacena en el servidor y queda visible para todos los inspectores.</p>
+
+        <div class="flow-diagram">
+            <div class="flow-box">Datos TV</div>
+            <div class="flow-arrow">&rarr;</div>
+            <div class="flow-box">Caja / Accesorios</div>
+            <div class="flow-arrow">&rarr;</div>
+            <div class="flow-box">Audio / Video</div>
+            <div class="flow-arrow">&rarr;</div>
+            <div class="flow-box">Pantalla / Chasis</div>
+            <div class="flow-arrow">&rarr;</div>
+            <div class="flow-box">AQL Final</div>
+        </div>
+    </div>
+
+    <!-- SECCIÓN 4 -->
+    <div class="page">
+        <h2 class="section-title"><span class="section-num">4.</span> Historial de Registros</h2>
+
+        <p>La pestaña <strong>Historial</strong> muestra todas las inspecciones realizadas por todos los inspectores del equipo.</p>
+
+        <h3>4.1 Consultar registros</h3>
+        <p>Al hacer clic en la pestaña "Historial", el sistema carga automáticamente todos los registros desde el servidor. La tabla muestra:</p>
+        <ul>
+            <li>Número de registro</li>
+            <li>Fecha y hora de la inspección</li>
+            <li>License Plate, SKU, Marca, Modelo, Pulgada</li>
+            <li>Clasificación</li>
+            <li>Estado de cada componente evaluado (con indicadores de color)</li>
+            <li>Resultado AQL final</li>
+        </ul>
+
+        <p>En la parte superior se muestran tres contadores:</p>
+        <ul>
+            <li><strong>Total</strong> - Número total de inspecciones</li>
+            <li><strong>Aceptados</strong> - Inspecciones con resultado ACEPTADO</li>
+            <li><strong>Rechazados</strong> - Inspecciones con resultado RECHAZADO</li>
+        </ul>
+
+        <h3>4.2 Filtrar registros</h3>
+        <p>Puede filtrar los registros utilizando los controles de búsqueda en la parte superior de la tabla:</p>
+
+        <table>
+            <tr><th>Filtro</th><th>Función</th></tr>
+            <tr>
+                <td>Campo de texto</td>
+                <td>Buscar por License Plate, SKU, marca o modelo</td>
+            </tr>
+            <tr>
+                <td>Filtro AQL</td>
+                <td>Mostrar solo ACEPTADO, solo RECHAZADO, o todos</td>
+            </tr>
+            <tr>
+                <td>Filtro Clasificación</td>
+                <td>Mostrar solo una clasificación específica (GRA, GRB, etc.)</td>
+            </tr>
+        </table>
+
+        <div class="info-box tip">
+            <strong>Consejo</strong>
+            Los filtros se aplican en tiempo real mientras escribe o selecciona opciones. Cuando está conectado al servidor, los filtros se ejecutan directamente en PocketBase para mayor velocidad.
+        </div>
+
+        <h3>4.3 Exportar a Excel</h3>
+        <p>Para exportar todos los registros a un archivo Excel:</p>
+        <ol>
+            <li>Haga clic en el botón <strong>"Exportar Excel"</strong></li>
+            <li>Se descargará automáticamente un archivo <code>AQL_Registros_YYYY-MM-DD.xlsx</code></li>
+            <li>El archivo contiene todos los campos de cada inspección, incluyendo el nombre del inspector</li>
+        </ol>
+
+        <h3>4.4 Eliminar registros</h3>
+        <ul>
+            <li><strong>Eliminar uno:</strong> Haga clic en "Eliminar" en la fila correspondiente. Se pedirá confirmación.</li>
+            <li><strong>Eliminar todos:</strong> Haga clic en "Limpiar Todo". Esta acción elimina todos los registros del servidor y no se puede deshacer.</li>
+        </ul>
+
+        <div class="info-box warning">
+            <strong>Precaución</strong>
+            Eliminar registros es una acción permanente. Asegúrese de exportar los datos a Excel antes de eliminar si necesita conservar la información.
+        </div>
+    </div>
+
+    <!-- SECCIÓN 5 -->
+    <div class="page">
+        <h2 class="section-title"><span class="section-num">5.</span> Dashboard</h2>
+
+        <p>La pestaña <strong>Dashboard</strong> ofrece una vista gráfica de los datos de inspección para facilitar el análisis y la toma de decisiones.</p>
+
+        <h3>5.1 Indicadores KPI</h3>
+        <p>En la parte superior del Dashboard se muestran cuatro indicadores clave:</p>
+
+        <table>
+            <tr><th>KPI</th><th>Descripción</th></tr>
+            <tr>
+                <td><strong>Total Inspecciones</strong></td>
+                <td>Cantidad total de inspecciones registradas en el sistema</td>
+            </tr>
+            <tr>
+                <td><strong>Aceptados</strong> <span class="badge badge-green">verde</span></td>
+                <td>Cantidad de inspecciones con resultado ACEPTADO</td>
+            </tr>
+            <tr>
+                <td><strong>Rechazados</strong> <span class="badge badge-red">rojo</span></td>
+                <td>Cantidad de inspecciones con resultado RECHAZADO</td>
+            </tr>
+            <tr>
+                <td><strong>Tasa de Aceptación</strong> <span class="badge badge-blue">azul</span></td>
+                <td>Porcentaje de unidades aceptadas sobre el total (Aceptados / Total x 100)</td>
+            </tr>
+        </table>
+
+        <h3>5.2 Gráficos</h3>
+        <p>El Dashboard incluye seis gráficos interactivos:</p>
+
+        <h4>Estado AQL (Gráfico de dona)</h4>
+        <p>Muestra la proporción de televisores aceptados vs rechazados. Permite ver de un vistazo la tasa general de calidad.</p>
+
+        <h4>Por Clasificación (Gráfico de barras)</h4>
+        <p>Muestra cuántas inspecciones se han realizado por cada tipo de clasificación (GRA, GRB, GRC, etc.). Útil para identificar qué clasificaciones llegan con mayor frecuencia.</p>
+
+        <h4>Estado de Componentes (Barras apiladas horizontales)</h4>
+        <p>Muestra el estado de los cuatro componentes evaluados (Audio, Video, Pantalla, Chasis) apilando los tres estados posibles (Excelente, Buen Estado, Con Problemas). Permite identificar rápidamente qué componente presenta más problemas.</p>
+
+        <h4>Inspecciones por Día (Gráfico de línea)</h4>
+        <p>Muestra la tendencia diaria de inspecciones. Permite ver el volumen de trabajo a lo largo del tiempo y detectar picos o caídas en la actividad.</p>
+
+        <h4>Por Marca (Gráfico de barras)</h4>
+        <p>Muestra cuántas inspecciones se han realizado por cada marca de televisor. Útil para ver la distribución del inventario inspeccionado.</p>
+
+        <h4>Por Inspector (Gráfico de dona)</h4>
+        <p>Muestra la distribución del trabajo entre los inspectores. Permite ver cuántas inspecciones ha realizado cada miembro del equipo.</p>
+
+        <div class="info-box tip">
+            <strong>Consejo</strong>
+            Los gráficos se actualizan cada vez que abre la pestaña Dashboard. Los datos se cargan directamente desde el servidor para mostrar siempre la información más reciente.
+        </div>
+    </div>
+
+    <!-- SECCIÓN 6 -->
+    <div class="page">
+        <h2 class="section-title"><span class="section-num">6.</span> Funcionamiento Multi-equipo</h2>
+
+        <p>El sistema está diseñado para que múltiples inspectores trabajen simultáneamente, compartiendo datos en tiempo real.</p>
+
+        <h3>6.1 Sincronización en tiempo real</h3>
+
+        <div class="flow-diagram">
+            <div class="flow-box">Inspector A<br>registra TV</div>
+            <div class="flow-arrow">&rarr;</div>
+            <div class="flow-box">Servidor<br>PocketBase</div>
+            <div class="flow-arrow">&rarr;</div>
+            <div class="flow-box">Inspector B<br>ve el registro</div>
+        </div>
+
+        <p>Cuando un inspector guarda una inspección:</p>
+        <ol>
+            <li>El registro se envía inmediatamente al servidor PocketBase</li>
+            <li>El servidor notifica a todos los inspectores conectados (realtime)</li>
+            <li>Si otro inspector está viendo el Historial, los datos se actualizan automáticamente</li>
+        </ol>
+
+        <p>Esto significa que todos los inspectores siempre ven los mismos datos, sin importar quién los haya registrado.</p>
+
+        <h3>6.2 Modo sin conexión</h3>
+        <p>Si se pierde la conexión con el servidor durante una inspección:</p>
+        <ol>
+            <li>Los datos se guardan <strong>localmente</strong> en el navegador</li>
+            <li>Se agregan a una cola de <strong>pendientes de sincronización</strong></li>
+            <li>Cuando se recupera la conexión, los datos pendientes se envían automáticamente al servidor</li>
+        </ol>
+
+        <div class="info-box warning">
+            <strong>Nota</strong>
+            Los datos guardados localmente solo existen en ESE navegador/dispositivo. No serán visibles para otros inspectores hasta que se sincronicen con el servidor.
+        </div>
+
+        <h3>6.3 Barra de estado</h3>
+        <p>En la parte superior de la aplicación, la barra de estado indica:</p>
+        <table>
+            <tr><th>Indicador</th><th>Color</th><th>Significado</th></tr>
+            <tr>
+                <td>Conectado</td>
+                <td><span class="badge badge-green">Verde</span></td>
+                <td>Conexión activa con el servidor. Los datos se sincronizan normalmente.</td>
+            </tr>
+            <tr>
+                <td>Sincronizando</td>
+                <td><span class="badge badge-yellow">Amarillo</span></td>
+                <td>Enviando o recibiendo datos del servidor.</td>
+            </tr>
+            <tr>
+                <td>Desconectado</td>
+                <td><span class="badge badge-red">Rojo</span></td>
+                <td>Sin conexión al servidor. Los datos se guardan localmente.</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- SECCIÓN 7 -->
+    <div class="page">
+        <h2 class="section-title"><span class="section-num">7.</span> Referencia Rápida</h2>
+
+        <h3>Acceso</h3>
+        <table>
+            <tr><th>Elemento</th><th>Valor</th></tr>
+            <tr><td>URL del sistema</td><td><code>http://192.168.80.149:8091</code></td></tr>
+            <tr><td>Base de datos</td><td><code>http://192.168.80.103:8090</code></td></tr>
+        </table>
+
+        <h3>Flujo de trabajo del inspector</h3>
+
+        <div class="step-box">
+            <div class="step-num">1</div>
+            <div class="step-content">
+                <strong>Abrir el sistema e iniciar sesión</strong>
+                Ingrese su email y contraseña.
+            </div>
+        </div>
+
+        <div class="step-box">
+            <div class="step-num">2</div>
+            <div class="step-content">
+                <strong>Escanear License Plate y buscar SKU</strong>
+                El sistema autocompleta marca, modelo y pulgada.
+            </div>
+        </div>
+
+        <div class="step-box">
+            <div class="step-num">3</div>
+            <div class="step-content">
+                <strong>Seleccionar clasificación y hacer clic en "Siguiente"</strong>
+                Pasa al proceso AQL.
+            </div>
+        </div>
+
+        <div class="step-box">
+            <div class="step-num">4</div>
+            <div class="step-content">
+                <strong>Evaluar caja, accesorios, protección y componentes</strong>
+                Seleccione SI/NO y el estado de cada componente.
+            </div>
+        </div>
+
+        <div class="step-box">
+            <div class="step-num">5</div>
+            <div class="step-content">
+                <strong>Marcar ACEPTADO o RECHAZADO y guardar</strong>
+                El registro se envía al servidor automáticamente.
+            </div>
+        </div>
+
+        <div class="step-box">
+            <div class="step-num">6</div>
+            <div class="step-content">
+                <strong>Consultar Dashboard o Historial según necesidad</strong>
+                Revise estadísticas o exporte datos cuando lo requiera.
+            </div>
+        </div>
+
+        <h3>Atajos y consejos</h3>
+        <ul>
+            <li>Use la tecla <strong>Enter</strong> en el campo de contraseña para iniciar sesión rápidamente</li>
+            <li>El buscador de SKU acepta búsqueda parcial (escriba "SAM" para ver todos los Samsung)</li>
+            <li>Los filtros del Historial se aplican en tiempo real al escribir</li>
+            <li>El Dashboard se actualiza cada vez que entra a la pestaña</li>
+            <li>Exporte a Excel periódicamente como respaldo de los datos</li>
+        </ul>
+
+        <div class="footer-note">
+            Sistema AQL Control de Calidad v1.0 &mdash; MITECH &mdash; Febrero 2026<br>
+            Para soporte técnico, contacte al administrador del sistema.
+        </div>
+    </div>
+
+</body>
+</html>
