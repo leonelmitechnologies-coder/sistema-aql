@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "ssh2": "^1.17.0"
+  }
+}

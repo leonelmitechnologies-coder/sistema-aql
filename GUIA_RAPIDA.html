@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía Rápida de Implementación | MI Technologies</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            padding: 20px;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .header {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            margin-bottom: 30px;
+        }
+        .section {
+            background: white;
+            padding: 35px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        .section h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 3px solid #e74c3c;
+        }
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+        .timeline-item {
+            display: flex;
+            margin-bottom: 30px;
+            align-items: flex-start;
+        }
+        .timeline-marker {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+        .timeline-content {
+            flex: 1;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            margin: 10px;
+            transition: all 0.3s ease;
+        }
+        .btn:hover { transform: scale(1.05); }
+        .quick-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .quick-link {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border: 2px solid #ecf0f1;
+            transition: all 0.3s ease;
+        }
+        .quick-link:hover {
+            border-color: #3498db;
+            transform: translateY(-5px);
+        }
+        .quick-link a {
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Guía Rápida de Implementación</h1>
+            <p style="color: #7f8c8d; margin-top: 15px; font-size: 1.1em;">
+                Plan de Acción - Esta Semana
+            </p>
+        </div>
+
+        <div class="section">
+            <h2>📋 CHECKLIST SEMANA 1</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-marker">1</div>
+                    <div class="timeline-content">
+                        <h3>DÍA 1-2 (Lunes-Martes)</h3>
+                        <ul style="margin-left: 20px; line-height: 1.8;">
+                            <li>☐ Leer <strong>RESUMEN_EJECUTIVO.html</strong></li>
+                            <li>☐ Aprobar presupuesto Fase 1: <strong>$8,200</strong></li>
+                            <li>☐ Comprar equipamiento (cuarto oscuro, LED)</li>
+                            <li>☐ Agendar reunión ejecutiva</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker">2</div>
+                    <div class="timeline-content">
+                        <h3>DÍA 3-4 (Miércoles-Jueves)</h3>
+                        <ul style="margin-left: 20px; line-height: 1.8;">
+                            <li>☐ Construir estación de inspección visual</li>
+                            <li>☐ Imprimir 50 copias de <strong>ANEXO_A_INSPECCION.html</strong></li>
+                            <li>☐ Imprimir 100 copias de <strong>ANEXO_B_CHECKLIST.html</strong></li>
+                            <li>☐ Capacitar primeros 3 inspectores QA (4 horas)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker">3</div>
+                    <div class="timeline-content">
+                        <h3>DÍA 5 (Viernes)</h3>
+                        <ul style="margin-left: 20px; line-height: 1.8;">
+                            <li>☐ <strong>🚀 INICIAR INSPECCIÓN VISUAL AL 100%</strong></li>
+                            <li>☐ Re-capacitar personal (técnica de manejo)</li>
+                            <li>☐ Implementar checklist de accesorios</li>
+                            <li>☐ Primera reunión de revisión de resultados</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📂 DOCUMENTOS CLAVE</h2>
+            <div class="quick-links">
+                <div class="quick-link">
+                    <div style="font-size: 2.5em; margin-bottom: 10px;">📄</div>
+                    <a href="RESUMEN_EJECUTIVO.html">Resumen Ejecutivo</a>
+                    <p style="margin-top: 10px; font-size: 0.9em; color: #7f8c8d;">Para gerencia</p>
+                </div>
+
+                <div class="quick-link">
+                    <div style="font-size: 2.5em; margin-bottom: 10px;">📊</div>
+                    <a href="index.html">Dashboard</a>
+                    <p style="margin-top: 10px; font-size: 0.9em; color: #7f8c8d;">Datos visuales</p>
+                </div>
+
+                <div class="quick-link">
+                    <div style="font-size: 2.5em; margin-bottom: 10px;">✅</div>
+                    <a href="ANEXO_A_INSPECCION.html">Formato Inspección</a>
+                    <p style="margin-top: 10px; font-size: 0.9em; color: #7f8c8d;">Listo para imprimir</p>
+                </div>
+
+                <div class="quick-link">
+                    <div style="font-size: 2.5em; margin-bottom: 10px;">📋</div>
+                    <a href="ANEXO_B_CHECKLIST.html">Checklist Accesorios</a>
+                    <p style="margin-top: 10px; font-size: 0.9em; color: #7f8c8d;">Por modelo</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" style="background: linear-gradient(135deg, #fff5e1 0%, #ffe4b5 100%); border: 3px solid #f39c12;">
+            <h2 style="color: #d35400;">⚡ RECORDATORIO CRÍTICO</h2>
+            <div style="text-align: center; padding: 20px;">
+                <p style="font-size: 1.5em; font-weight: bold; color: #e74c3c; margin-bottom: 15px;">
+                    Cada día de retraso = $1,100 USD
+                </p>
+                <p style="font-size: 1.2em; color: #2c3e50;">
+                    💰 Inversión: $8,200 | 📈 ROI: 388% | ⏰ Payback: 2.5 meses
+                </p>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin: 30px 0;">
+            <a href="NAVEGACION.html" class="btn">📚 Ver Todos los Documentos</a>
+            <a href="INICIO.html" class="btn">🏠 Volver al Inicio</a>
+        </div>
+    </div>
+</body>
+</html>

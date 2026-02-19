@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análisis Integral de Calidad | MI Technologies</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+            padding: 20px;
+        }
+        .container { max-width: 1400px; margin: 0 auto; }
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 50px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+        .section {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        .section h2 {
+            color: #2c3e50;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 4px solid #3498db;
+            font-size: 1.8em;
+        }
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+        .stat-card.critical {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+        }
+        .stat-card .icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+        .stat-card .value {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .stat-card .label {
+            font-size: 1em;
+            opacity: 0.95;
+        }
+        .methodology-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+        .method-card {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 5px solid #3498db;
+        }
+        .method-card h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        .analysis-box {
+            background: #fff3cd;
+            border-left: 5px solid #f39c12;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        .finding {
+            background: #fee;
+            border-left: 5px solid #e74c3c;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        .solution {
+            background: #e8f5e9;
+            border-left: 5px solid #27ae60;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+        }
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        thead {
+            background: #34495e;
+            color: white;
+        }
+        tbody tr:hover {
+            background: #f8f9fa;
+        }
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            margin: 10px;
+            transition: all 0.3s ease;
+        }
+        .btn:hover { transform: scale(1.05); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>📊 ANÁLISIS INTEGRAL DE CALIDAD</h1>
+            <h2 style="margin-top: 15px; font-weight: normal;">Televisores SNTV - MI Technologies Inc.</h2>
+            <div style="margin-top: 20px; font-size: 1.1em;">
+                📅 13 de Febrero, 2026 | 👨‍💼 Ingeniero de Calidad Black Belt
+            </div>
+            <div style="margin-top: 20px; background: rgba(255,255,255,0.2); padding: 15px; border-radius: 10px;">
+                <strong>Nivel de Prioridad:</strong> 🔴 CRÍTICO - Acción Inmediata Requerida
+            </div>
+        </div>
+
+        <!-- Executive Summary -->
+        <div class="section">
+            <h2>🎯 RESUMEN EJECUTIVO</h2>
+
+            <div class="stat-grid">
+                <div class="stat-card critical">
+                    <div class="icon">📊</div>
+                    <div class="label">Quejas de TVs (SNTV)</div>
+                    <div class="value">1,365</div>
+                    <div>84% del total de quejas</div>
+                </div>
+
+                <div class="stat-card critical">
+                    <div class="icon">💰</div>
+                    <div class="label">Costo Anual Estimado</div>
+                    <div class="value">$600K+</div>
+                    <div>Impacto económico crítico</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="icon">📈</div>
+                    <div class="label">ROI Proyectado</div>
+                    <div class="value">382%</div>
+                    <div>Payback: 2.5 meses</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="icon">💵</div>
+                    <div class="label">Ahorro Proyectado</div>
+                    <div class="value">$690K</div>
+                    <div>Año 1 con plan completo</div>
+                </div>
+            </div>
+
+            <div class="finding">
+                <h3 style="color: #e74c3c; margin-bottom: 15px;">🚨 HALLAZGO CRÍTICO</h3>
+                <p style="font-size: 1.1em; line-height: 1.8;">
+                    <strong>39.2%</strong> de todas las quejas de televisores están relacionadas con <strong>daños en pantalla</strong> (quebradas + defectos visibles).
+                    Esto representa <strong>535 quejas</strong> de un total de 1,365.
+                </p>
+                <p style="margin-top: 15px; font-size: 1em;">
+                    <strong>Costo estimado:</strong> $160,500 USD solo en daños de pantalla (535 × $300 promedio por unidad)
+                </p>
+            </div>
+        </div>
+
+        <!-- Análisis Estadístico -->
+        <div class="section">
+            <h2>📈 ANÁLISIS ESTADÍSTICO DETALLADO</h2>
+
+            <h3 style="color: #2c3e50; margin: 25px 0 15px 0;">Top 10 Tipos de Quejas (Análisis de Pareto)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Ranking</th>
+                        <th>Tipo de Queja</th>
+                        <th>Cantidad</th>
+                        <th>% Individual</th>
+                        <th>% Acumulado</th>
+                        <th>Prioridad</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="background: #fee;">
+                        <td>🥇 1</td>
+                        <td><strong>Quebrada</strong></td>
+                        <td>349</td>
+                        <td>25.6%</td>
+                        <td>25.6%</td>
+                        <td><strong>CRÍTICO</strong></td>
+                    </tr>
+                    <tr style="background: #fee;">
+                        <td>🥈 2</td>
+                        <td><strong>Defecto En Pantalla</strong></td>
+                        <td>186</td>
+                        <td>13.6%</td>
+                        <td>39.2%</td>
+                        <td><strong>CRÍTICO</strong></td>
+                    </tr>
+                    <tr>
+                        <td>🥉 3</td>
+                        <td>Defective</td>
+                        <td>92</td>
+                        <td>6.7%</td>
+                        <td>45.9%</td>
+                        <td>Alto</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Incompleto</td>
+                        <td>82</td>
+                        <td>6.0%</td>
+                        <td>51.9%</td>
+                        <td>Alto</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>Mala Calidad</td>
+                        <td>79</td>
+                        <td>5.8%</td>
+                        <td>57.7%</td>
+                        <td>Medio</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>No Funciona</td>
+                        <td>63</td>
+                        <td>4.6%</td>
+                        <td>62.3%</td>
+                        <td>Medio</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>Defectuoso</td>
+                        <td>57</td>
+                        <td>4.2%</td>
+                        <td>66.5%</td>
+                        <td>Medio</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>Problema inventario</td>
+                        <td>46</td>
+                        <td>3.4%</td>
+                        <td>69.9%</td>
+                        <td>Bajo</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td>Software</td>
+                        <td>34</td>
+                        <td>2.5%</td>
+                        <td>72.4%</td>
+                        <td>Bajo</td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td>Envío erróneo</td>
+                        <td>32</td>
+                        <td>2.3%</td>
+                        <td>74.7%</td>
+                        <td>Bajo</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="analysis-box">
+                <h4 style="color: #f39c12; margin-bottom: 15px;">💡 Análisis de Pareto (Regla 80/20)</h4>
+                <ul style="margin-left: 20px; line-height: 1.8;">
+                    <li><strong>Los primeros 4 tipos de defectos representan el 51.9%</strong> de todas las quejas</li>
+                    <li>Enfocarse en estos 4 tendrá el <strong>mayor impacto</strong> en la reducción de quejas</li>
+                    <li>Daños de pantalla (Quebrada + Defecto) = <strong>535 quejas (39.2%)</strong></li>
+                </ul>
+            </div>
+
+            <h3 style="color: #2c3e50; margin: 30px 0 15px 0;">Top 10 SKUs Más Problemáticos</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>SKU</th>
+                        <th>Quejas</th>
+                        <th>% del Total</th>
+                        <th>Acción Requerida</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="background: #fee;">
+                        <td>🥇 1</td>
+                        <td><strong>SNTV001764</strong></td>
+                        <td>106</td>
+                        <td>7.8%</td>
+                        <td><strong>Auditoría profunda inmediata</strong></td>
+                    </tr>
+                    <tr style="background: #fee;">
+                        <td>🥈 2</td>
+                        <td><strong>SNTV001763</strong></td>
+                        <td>54</td>
+                        <td>4.0%</td>
+                        <td><strong>Auditoría profunda inmediata</strong></td>
+                    </tr>
+                    <tr style="background: #fff3cd;">
+                        <td>🥉 3</td>
+                        <td><strong>SNTV002236</strong></td>
+                        <td>42</td>
+                        <td>3.1%</td>
+                        <td>Inspección mejorada</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>SNTV001863</td>
+                        <td>41</td>
+                        <td>3.0%</td>
+                        <td>Inspección mejorada</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>SNTV001864</td>
+                        <td>36</td>
+                        <td>2.6%</td>
+                        <td>Inspección mejorada</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="analysis-box">
+                <p style="font-size: 1.1em;"><strong>TOP 3 SKUs = 202 quejas (14.8% del total SNTV)</strong></p>
+            </div>
+        </div>
+
+        <!-- Causa Raíz -->
+        <div class="section">
+            <h2>🔍 ANÁLISIS DE CAUSA RAÍZ (RCA)</h2>
+
+            <div class="finding">
+                <h3 style="color: #e74c3c; margin-bottom: 15px;">Problema Principal: Pantallas Dañadas (535 quejas)</h3>
+
+                <h4 style="margin: 20px 0 10px 0;">Metodología 5 Whys:</h4>
+                <ol style="margin-left: 20px; line-height: 2;">
+                    <li><strong>¿Por qué las pantallas llegan dañadas?</strong><br>
+                        → Se dañan durante manipulación o transporte</li>
+                    <li><strong>¿Por qué se dañan durante manipulación?</strong><br>
+                        → Operadores tocan/presionan pantallas incorrectamente</li>
+                    <li><strong>¿Por qué los operadores no siguen técnicas correctas?</strong><br>
+                        → Capacitación insuficiente, sin verificación activa</li>
+                    <li><strong>¿Por qué la capacitación no es efectiva?</strong><br>
+                        → Falta práctica supervisada, no hay certificación obligatoria</li>
+                    <li><strong>¿Por qué no se detectan antes del envío?</strong><br>
+                        → NO existe inspección visual al 100% para defectos físicos</li>
+                </ol>
+
+                <div style="margin-top: 25px; padding: 20px; background: white; border-radius: 8px;">
+                    <h4 style="color: #e74c3c; margin-bottom: 10px;">CAUSAS RAÍZ IDENTIFICADAS:</h4>
+                    <ol style="margin-left: 20px; line-height: 1.8;">
+                        <li><strong>Ausencia de inspección visual al 100%</strong> para defectos físicos/cosméticos</li>
+                        <li><strong>Falta de controles preventivos efectivos</strong> durante manipulación</li>
+                        <li><strong>Capacitación insuficiente</strong> con verificación en tiempo real</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- FMEA -->
+        <div class="section">
+            <h2>⚠️ ANÁLISIS FMEA (Failure Mode and Effects Analysis)</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Modo de Falla</th>
+                        <th>Severidad (S)</th>
+                        <th>Ocurrencia (O)</th>
+                        <th>Detección (D)</th>
+                        <th>RPN</th>
+                        <th>Prioridad</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="background: #fee;">
+                        <td><strong>Pantalla quebrada por manipulación</strong></td>
+                        <td>10</td>
+                        <td>9</td>
+                        <td>8</td>
+                        <td style="font-size: 1.2em; font-weight: bold;">720</td>
+                        <td><strong>1 - CRÍTICO</strong></td>
+                    </tr>
+                    <tr style="background: #fee;">
+                        <td><strong>Defecto cosmético en pantalla</strong></td>
+                        <td>9</td>
+                        <td>8</td>
+                        <td>7</td>
+                        <td style="font-size: 1.2em; font-weight: bold;">504</td>
+                        <td><strong>2 - CRÍTICO</strong></td>
+                    </tr>
+                    <tr style="background: #fff3cd;">
+                        <td>Falta accesorios en empaque</td>
+                        <td>6</td>
+                        <td>7</td>
+                        <td>8</td>
+                        <td>336</td>
+                        <td>3 - ALTO</td>
+                    </tr>
+                    <tr>
+                        <td>TV no enciende (defecto eléctrico)</td>
+                        <td>10</td>
+                        <td>5</td>
+                        <td>4</td>
+                        <td>200</td>
+                        <td>4 - MEDIO</td>
+                    </tr>
+                    <tr>
+                        <td>Configuración previa/PIN bloqueado</td>
+                        <td>5</td>
+                        <td>3</td>
+                        <td>9</td>
+                        <td>135</td>
+                        <td>5 - MEDIO</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="analysis-box">
+                <h4 style="color: #f39c12; margin-bottom: 10px;">🎯 Objetivos de Reducción de RPN</h4>
+                <ul style="margin-left: 20px; line-height: 1.8;">
+                    <li>RPN > 500 → Reducir a &lt; 200 en <strong>3 meses</strong></li>
+                    <li>RPN > 200 → Reducir a &lt; 100 en <strong>6 meses</strong></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Solución -->
+        <div class="section">
+            <h2>💡 PLAN DE SOLUCIÓN INTEGRAL</h2>
+
+            <div class="solution">
+                <h3 style="color: #27ae60; margin-bottom: 20px;">Enfoque Multi-Metodología</h3>
+                <div class="methodology-grid">
+                    <div class="method-card">
+                        <h4>Six Sigma DMAIC</h4>
+                        <p>Estructura de mejora continua con fases Define, Measure, Analyze, Improve, Control</p>
+                    </div>
+                    <div class="method-card">
+                        <h4>Análisis de Pareto</h4>
+                        <p>Identificación de los "Vital Few" - enfoque en 20% causas del 80% problemas</p>
+                    </div>
+                    <div class="method-card">
+                        <h4>5 Whys + FMEA</h4>
+                        <p>Análisis de causa raíz profundo con evaluación de riesgos (RPN)</p>
+                    </div>
+                    <div class="method-card">
+                        <h4>AQL (MIL-STD-105E)</h4>
+                        <p>Plan de muestreo de aceptación para control de calidad estadístico</p>
+                    </div>
+                    <div class="method-card">
+                        <h4>Control Estadístico (SPC)</h4>
+                        <p>Monitoreo en tiempo real con gráficas de control y KPIs</p>
+                    </div>
+                    <div class="method-card">
+                        <h4>ISO 9001:2015</h4>
+                        <p>Sistema de gestión de calidad estandarizado y certificable</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="color: #2c3e50; margin: 30px 0 15px 0;">Plan de 4 Fases (12 meses)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Fase</th>
+                        <th>Periodo</th>
+                        <th>Inversión</th>
+                        <th>Acciones Principales</th>
+                        <th>Resultado Esperado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="background: #fee;">
+                        <td><strong>Fase 1</strong><br>Inmediato</td>
+                        <td>Semana 1-2</td>
+                        <td>$8,200</td>
+                        <td>Inspección 100%, re-capacitación, checklist accesorios, auditorías cada 2h</td>
+                        <td style="color: #27ae60; font-weight: bold;">50-60% reducción</td>
+                    </tr>
+                    <tr style="background: #fff3cd;">
+                        <td><strong>Fase 2</strong><br>Estabilización</td>
+                        <td>Mes 1-3</td>
+                        <td>$30,000</td>
+                        <td>Mejoras ergonómicas, SPC, certificación operadores, sistema NCRs digital</td>
+                        <td style="color: #27ae60; font-weight: bold;">70-80% reducción</td>
+                    </tr>
+                    <tr style="background: #e8f5e9;">
+                        <td><strong>Fase 3</strong><br>Optimización</td>
+                        <td>Mes 3-6</td>
+                        <td>$15,000</td>
+                        <td>Poka-Yoke (a prueba de errores), Kaizen, auditorías mensuales, reconocimiento</td>
+                        <td style="color: #27ae60; font-weight: bold;">80-85% reducción</td>
+                    </tr>
+                    <tr style="background: #e3f2fd;">
+                        <td><strong>Fase 4</strong><br>Excelencia</td>
+                        <td>Mes 6-12</td>
+                        <td>$90,000</td>
+                        <td>Visión artificial, desarrollo proveedores, certificación ISO 9001, clase mundial</td>
+                        <td style="color: #27ae60; font-weight: bold;">90%+ reducción</td>
+                    </tr>
+                    <tr style="background: #d4edda; font-weight: bold; font-size: 1.1em;">
+                        <td>TOTAL</td>
+                        <td>12 meses</td>
+                        <td>$143,200</td>
+                        <td>Sistema completo de gestión de calidad</td>
+                        <td style="color: #27ae60;">Clase Mundial</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Resultados -->
+        <div class="section">
+            <h2>📊 RESULTADOS ESPERADOS</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Métrica</th>
+                        <th>Actual</th>
+                        <th>Meta 3M</th>
+                        <th>Meta 6M</th>
+                        <th>Meta 12M</th>
+                        <th>Mejora</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Quejas/mes</strong></td>
+                        <td style="color: #e74c3c; font-weight: bold;">114</td>
+                        <td style="color: #f39c12;">&lt;40</td>
+                        <td style="color: #27ae60;">&lt;20</td>
+                        <td style="color: #27ae60; font-weight: bold;">&lt;10</td>
+                        <td style="color: #27ae60; font-weight: bold;">91%↓</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tasa de Defectos</strong></td>
+                        <td style="color: #e74c3c; font-weight: bold;">3-5%</td>
+                        <td style="color: #f39c12;">&lt;1%</td>
+                        <td style="color: #27ae60;">&lt;0.5%</td>
+                        <td style="color: #27ae60; font-weight: bold;">&lt;0.1%</td>
+                        <td style="color: #27ae60; font-weight: bold;">98%↓</td>
+                    </tr>
+                    <tr>
+                        <td><strong>First Pass Yield</strong></td>
+                        <td style="color: #e74c3c; font-weight: bold;">~90%</td>
+                        <td style="color: #f39c12;">&gt;95%</td>
+                        <td style="color: #27ae60;">&gt;97%</td>
+                        <td style="color: #27ae60; font-weight: bold;">&gt;99%</td>
+                        <td style="color: #27ae60; font-weight: bold;">+9%</td>
+                    </tr>
+                    <tr>
+                        <td><strong>COPQ ($/mes)</strong></td>
+                        <td style="color: #e74c3c; font-weight: bold;">$50,000</td>
+                        <td style="color: #f39c12;">$21,000</td>
+                        <td style="color: #27ae60;">$12,000</td>
+                        <td style="color: #27ae60; font-weight: bold;">$6,000</td>
+                        <td style="color: #27ae60; font-weight: bold;">88%↓</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="solution">
+                <h3 style="color: #27ae60; margin-bottom: 15px;">💰 Análisis Financiero</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 2.5em; color: #f39c12; font-weight: bold;">$143K</div>
+                        <div>Inversión Total</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 2.5em; color: #27ae60; font-weight: bold;">$690K</div>
+                        <div>Ahorro Proyectado</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 2.5em; color: #3498db; font-weight: bold;">382%</div>
+                        <div>ROI</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 2.5em; color: #9b59b6; font-weight: bold;">2.5</div>
+                        <div>Payback (meses)</div>
+                    </div>
+                </div>
+                <p style="text-align: center; margin-top: 20px; font-size: 1.2em; font-weight: bold;">
+                    🎉 Por cada $1 invertido, se recuperan $4.82
+                </p>
+            </div>
+        </div>
+
+        <!-- Conclusión -->
+        <div class="section" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+            <h2 style="color: white; border-bottom-color: white;">💬 CONCLUSIÓN Y RECOMENDACIÓN</h2>
+
+            <div style="font-size: 1.1em; line-height: 1.8;">
+                <p style="margin-bottom: 15px;">
+                    <strong>La situación es CRÍTICA pero 100% SOLUCIONABLE.</strong>
+                </p>
+
+                <p style="margin-bottom: 15px;">
+                    Con 84% de las quejas provenientes de televisores y un costo anual de $600,000+, la empresa está
+                    enfrentando una crisis de calidad que requiere acción inmediata.
+                </p>
+
+                <p style="margin-bottom: 15px;">
+                    Sin embargo, el análisis detallado ha identificado las causas raíz y el plan propuesto de 4 fases
+                    ofrece una solución integral con un ROI excepcional de 382% y payback de solo 2.5 meses.
+                </p>
+
+                <div style="background: rgba(255,255,255,0.2); padding: 25px; border-radius: 10px; margin: 25px 0;">
+                    <h3 style="margin-bottom: 15px; font-size: 1.5em;">🚀 RECOMENDACIÓN</h3>
+                    <p style="font-size: 1.2em; font-weight: bold;">
+                        APROBAR E INICIAR IMPLEMENTACIÓN DE FASE 1 INMEDIATAMENTE
+                    </p>
+                    <p style="margin-top: 15px;">
+                        Cada día de retraso = $1,100 USD en costos evitables
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div style="text-align: center; margin: 30px 0;">
+            <a href="RESUMEN_EJECUTIVO.html" class="btn">📄 Resumen Ejecutivo</a>
+            <a href="README.html" class="btn">📖 Guía de Implementación</a>
+            <a href="NAVEGACION.html" class="btn">📚 Centro de Documentación</a>
+        </div>
+
+        <!-- Footer -->
+        <div style="text-align: center; padding: 30px; background: white; border-radius: 15px;">
+            <p style="color: #2c3e50; font-weight: bold; margin-bottom: 10px;">MI Technologies Inc. - Sistema de Gestión de Calidad</p>
+            <p style="color: #7f8c8d;">Preparado por: Ingeniero de Calidad Black Belt</p>
+            <p style="color: #7f8c8d; margin-top: 10px;">
+                Metodologías: Six Sigma DMAIC, Pareto, FMEA, 5 Whys, AQL (MIL-STD-105E), SPC, ISO 9001:2015
+            </p>
+        </div>
+    </div>
+</body>
+</html>
